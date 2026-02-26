@@ -1,11 +1,11 @@
 # 🔐 Key System & Update Checker
 
-This system provides automatic key validation, monetized link generation, version control, and secure logging.
+The **Key System** provides automatic key validation, monetized link generation, version control, and secure logging.
 
 ⚠️ Important:  
-You do NOT manually import this library using `loadstring` or similar methods.
+You do NOT manually import this system using `loadstring` or similar methods.
 
-The system is automatically injected into your script when you upload a file and enable the corresponding options in the panel.
+The system is automatically injected into your script when you upload a file and enable the corresponding options in the upload panel.
 
 ---
 
@@ -18,28 +18,32 @@ When uploading your script, you may enable:
 
 If enabled, the selected system will be automatically injected into your script before distribution.
 
-No manual setup required inside your Lua file.
+No manual setup is required inside your Lua file.
 
 ---
 
 # 🔐 Key System
 
-When the **"Key System"** option is enabled during upload, your script will automatically receive access to a verification table.
+When the **"Key System"** option is enabled during upload, your script will automatically receive access to the `VRM` table.
 
-## Available Functions
-
-- `KeySystem.verify_key(key: string) -> table`
-- `KeySystem.copy_link(mode: string) -> string`
+`VRM` is the integrated library responsible for key verification and link generation.
 
 ---
 
-## 🔎 verify_key
+## Available Functions
+
+- `VRM.verify_key(key: string) -> table`
+- `VRM.copy_link(mode: string) -> string`
+
+---
+
+## 🔎 VRM.verify_key
 
 Validates a user key.
 
 ### Syntax
 
-    local result = KeySystem.verify_key(key)
+    local result = VRM.verify_key(key)
 
 ### Parameters
 
@@ -65,7 +69,7 @@ Validates a user key.
 
 ### Example
 
-    local data = KeySystem.verify_key(userKey)
+    local data = VRM.verify_key(userKey)
 
     if not data.valid then
         warn("Invalid key.")
@@ -74,9 +78,13 @@ Validates a user key.
 
     print("Authenticated user:", data.discord_id)
 
+    if data.premium then
+        print("Premium features unlocked.")
+    end
+
 ---
 
-## 🔗 copy_link
+## 🔗 VRM.copy_link
 
 Generates a monetized access link.
 
@@ -84,7 +92,7 @@ Generates a monetized access link.
 
 ### Syntax
 
-    local link = KeySystem.copy_link(mode)
+    local link = VRM.copy_link(mode)
 
 ### Available Modes
 
@@ -100,8 +108,8 @@ Generates a monetized access link.
 
 ### Example
 
-    local link = KeySystem.copy_link("linkvertise")
-    print("Get your key here:", link)
+    local link = VRM.copy_link("linkvertise")
+    print("Complete the steps here:", link)
 
 ---
 
@@ -109,18 +117,22 @@ Generates a monetized access link.
 
 When the **"Update Checker"** option is enabled during upload, your script will automatically receive version monitoring logic.
 
+This system works independently but integrates with the Key System when both are enabled.
+
+---
+
 ## What It Does
 
 - Checks if your script has updates available.
 - Verifies if your script has been disabled remotely.
-- Runs periodic heartbeat validation.
+- Performs periodic heartbeat validation.
 - Prevents execution if the script is marked as disabled.
 
 ---
 
 ## 🫀 Heartbeat System
 
-The injected update checker communicates with the backend to:
+The injected Update Checker communicates with the backend to:
 
 - Confirm script integrity.
 - Confirm active status.
@@ -138,24 +150,23 @@ This system logs:
 
 - ✅ Successful key authentications
 - ▶️ Script executions
-- ❌ (Optional) Other relevant security events
 
 ### Logged Events
 
 | Event | Description |
 |-------|------------|
-| Auth Success | A user inserted a valid key |
+| Auth Success | A user inserted a valid key into your script |
 | Script Execution | A user executed your script |
 
-Logs are sent securely to the configured webhook.
+Logs are securely sent to the configured webhook.
 
 ---
 
 # 🛡 Security Design
 
 - Injection happens server-side during upload.
-- Sensitive logic is not exposed before injection.
-- Remote disable system prevents unauthorized distribution.
+- Sensitive validation logic is protected.
+- Remote disable instantly affects all distributed versions.
 - Monetization links are controlled via backend configuration.
 - Webhook sending uses a protected system.
 
@@ -165,7 +176,7 @@ Logs are sent securely to the configured webhook.
 
 | Option | Injected Features |
 |--------|-------------------|
-| Key System | Key validation + monetized link generator |
+| Key System | Key validation + monetized link generator (`VRM`) |
 | Update Checker | Version control + heartbeat + remote disable + safe webhook logs |
 
 ---
