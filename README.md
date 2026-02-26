@@ -1,41 +1,53 @@
-# 🔐 VRM – Key Verification Module
+# 🔐 Key System & Update Checker
 
-A lightweight Lua module designed for secure key validation and controlled link generation.
+This system provides automatic key validation, monetized link generation, version control, and secure logging.
 
----
+⚠️ Important:  
+You do NOT manually import this library using `loadstring` or similar methods.
 
-## 📦 Overview
-
-`VRM` is a table containing two core functions:
-
-- `VRM.verify_key(key: string) -> table`
-- `VRM.copy_link(mode: string) -> string`
-
-This module is responsible for validating user keys and generating monetized access links.
+The system is automatically injected into your script when you upload a file and enable the corresponding options in the panel.
 
 ---
 
-## 📚 API Reference
+# 🚀 Injection System
+
+When uploading your script, you may enable:
+
+- ✅ **Key System**
+- ✅ **Update Checker**
+
+If enabled, the selected system will be automatically injected into your script before distribution.
+
+No manual setup required inside your Lua file.
 
 ---
 
-## 🔎 VRM.verify_key
+# 🔐 Key System
 
-Validates a key and returns verification data.
+When the **"Key System"** option is enabled during upload, your script will automatically receive access to a verification table.
 
-### 📌 Syntax
+## Available Functions
 
-    local result = VRM.verify_key(key)
+- `KeySystem.verify_key(key: string) -> table`
+- `KeySystem.copy_link(mode: string) -> string`
 
-### 📥 Parameters
+---
+
+## 🔎 verify_key
+
+Validates a user key.
+
+### Syntax
+
+    local result = KeySystem.verify_key(key)
+
+### Parameters
 
 | Name | Type   | Required | Description |
 |------|--------|----------|------------|
-| key  | string | Yes      | The key to be verified |
+| key  | string | Yes      | The key provided by the user |
 
-### 📤 Returns
-
-Returns a table:
+### Returns
 
     {
         discord_id = string,
@@ -43,112 +55,128 @@ Returns a table:
         valid = boolean
     }
 
-### 📄 Return Fields
+### Return Fields
 
 | Field        | Type    | Description |
 |-------------|---------|------------|
-| discord_id  | string  | Discord user ID associated with the key |
-| premium     | boolean | Indicates whether the user has premium access |
+| discord_id  | string  | Discord ID associated with the key |
+| premium     | boolean | Indicates premium access |
 | valid       | boolean | Indicates whether the key is valid |
 
-### 🧠 Example
+### Example
 
-    local data = VRM.verify_key("ABC123-KEY")
+    local data = KeySystem.verify_key(userKey)
 
-    if data.valid then
-        print("Key is valid!")
-        print("Discord ID:", data.discord_id)
-
-        if data.premium then
-            print("Premium user detected.")
-        end
-    else
-        print("Invalid key.")
+    if not data.valid then
+        warn("Invalid key.")
+        return
     end
+
+    print("Authenticated user:", data.discord_id)
 
 ---
 
-## 🔗 VRM.copy_link
+## 🔗 copy_link
 
-Generates a monetized link based on the configured shortener.
+Generates a monetized access link.
 
-⚠️ The selected mode must be configured in your backend system.
+⚠️ The selected mode must be configured in your dashboard.
 
-### 📌 Syntax
+### Syntax
 
-    local link = VRM.copy_link(mode)
+    local link = KeySystem.copy_link(mode)
 
-### 📥 Parameters
-
-| Name | Type   | Required | Description |
-|------|--------|----------|------------|
-| mode | string | Yes      | Defines which configured link shortener to use |
-
-### ✅ Available Modes
+### Available Modes
 
 - `"linkvertise"`
 - `"lootlabs"`
 - `"workink"`
 
-### 📤 Returns
+### Returns
 
 | Type   | Description |
 |--------|------------|
 | string | Generated shortened link |
 
-### 🧠 Example
+### Example
 
-    local link = VRM.copy_link("linkvertise")
-    print("Complete the steps here:", link)
-
----
-
-## 🛡 Expected Behavior
-
-- `verify_key` always returns a structured table.
-- Always check `valid` before trusting other fields.
-- `copy_link` only accepts configured modes.
-- If an invalid mode is provided, the function should return `nil` or an error (depending on implementation).
+    local link = KeySystem.copy_link("linkvertise")
+    print("Get your key here:", link)
 
 ---
 
-## 💡 Recommended Usage Pattern
+# 🔄 Update Checker
 
-    local keyData = VRM.verify_key(userKey)
+When the **"Update Checker"** option is enabled during upload, your script will automatically receive version monitoring logic.
 
-    if not keyData.valid then
-        warn("Access denied.")
-        return
-    end
+## What It Does
 
-    if keyData.premium then
-        print("Unlocking premium features...")
-    else
-        local monetizedLink = VRM.copy_link("linkvertise")
-        print("Complete verification:", monetizedLink)
-    end
+- Checks if your script has updates available.
+- Verifies if your script has been disabled remotely.
+- Runs periodic heartbeat validation.
+- Prevents execution if the script is marked as disabled.
 
 ---
 
-## ⚙ Integration Example
+## 🫀 Heartbeat System
 
-    local VRM = loadstring(game:HttpGet("YOUR_API_URL"))()
+The injected update checker communicates with the backend to:
 
-    local keyInfo = VRM.verify_key("USER_KEY")
+- Confirm script integrity.
+- Confirm active status.
+- Block execution if the script has been disabled from the panel.
 
-    if keyInfo.valid then
-        print("Welcome!")
-    end
-
----
-
-## 📌 Notes
-
-- Always validate `valid` before using other returned fields.
-- Do not expose private endpoints.
-- Use HTTPS for all requests.
-- Avoid storing sensitive verification logic client-side.
+This allows remote control over distributed scripts.
 
 ---
 
-© VRM System
+# 📡 Safe Webhook Logging
+
+The Update Checker includes integrated **safe webhook sending**.
+
+This system logs:
+
+- ✅ Successful key authentications
+- ▶️ Script executions
+- ❌ (Optional) Other relevant security events
+
+### Logged Events
+
+| Event | Description |
+|-------|------------|
+| Auth Success | A user inserted a valid key |
+| Script Execution | A user executed your script |
+
+Logs are sent securely to the configured webhook.
+
+---
+
+# 🛡 Security Design
+
+- Injection happens server-side during upload.
+- Sensitive logic is not exposed before injection.
+- Remote disable system prevents unauthorized distribution.
+- Monetization links are controlled via backend configuration.
+- Webhook sending uses a protected system.
+
+---
+
+# ⚙ Upload Options Summary
+
+| Option | Injected Features |
+|--------|-------------------|
+| Key System | Key validation + monetized link generator |
+| Update Checker | Version control + heartbeat + remote disable + safe webhook logs |
+
+---
+
+# 📌 Important Notes
+
+- Do not manually attempt to recreate injected logic.
+- Always check `valid` before trusting user data.
+- Ensure your webhook URL is properly configured in the panel.
+- Remote disable affects all distributed versions instantly.
+
+---
+
+© Key System Infrastructure
