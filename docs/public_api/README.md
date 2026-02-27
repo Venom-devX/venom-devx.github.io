@@ -1,4 +1,4 @@
-# 📘 Public API Documentation
+# 📘 Venom Armor Public API Documentation
 
 Base path:
 
@@ -10,7 +10,7 @@ All routes require authentication via Authorization header.
 
 ## 🔐 Authentication
 
-Every `/public/*` route uses Bearer authentication.
+Every `/public/*` route requires a valid API secret.
 
 ### Header
 
@@ -20,17 +20,9 @@ ou
 
 Authorization: YOUR_SECRET
 
-### Validation Flow
+If the token is invalid or missing, the API returns:
 
-1. The API extracts the token from `Authorization`
-2. Searches it in table `authenticated_users`
-3. If valid, injects into request:
-
-req.auth_data = {
-    service_id,
-    auth,
-    settings
-}
+401 Unauthorized
 
 ---
 
@@ -39,11 +31,9 @@ req.auth_data = {
 | Status | Meaning |
 |--------|----------|
 | 400 | Bad request (invalid body / missing fields) |
-| 401 | Unauthorized (invalid secret) |
+| 401 | Unauthorized (invalid or missing secret) |
 | 404 | Resource not found |
 | 500 | Internal server error |
-
-When using `sendMsg(res, code)`, the API returns a standardized error response.
 
 ---
 
@@ -56,60 +46,57 @@ When using `sendMsg(res, code)`, the API returns a standardized error response.
 Create one or multiple keys.
 
 ### Body (JSON)
-
+```json
 {
   "mode": "single" | "multiple",
   "prefix": "string (max 12 chars)",
   "quantity": number (only for multiple, max 10),
   "expires_in": number (hours, optional)
 }
+```
+### Field Rules
+
+- `mode` is required
+- `prefix` is required
+- `prefix.length` ≤ 12
+- `quantity` required only when mode = "multiple"
+- `quantity` ≤ 10
+- `expires_in` represents hours until expiration (optional)
 
 ---
 
 ### 🟢 Single Mode
 
-Requirements:
-- mode = "single"
-- prefix required
-- prefix length ≤ 12
-
 Example Request:
-
+```json
 {
   "mode": "single",
   "prefix": "CHAOS-",
   "expires_in": 24
 }
-
+```
 Success Response (201):
-
+```json
 {
   "message": "successfully created your key",
   "key": "CHAOS-ABCD1234EFGH5678"
 }
-
+```
 ---
 
 ### 🟢 Multiple Mode
 
-Requirements:
-- mode = "multiple"
-- prefix required
-- quantity required
-- quantity ≤ 10
-- prefix length ≤ 12
-
 Example Request:
-
+```json
 {
   "mode": "multiple",
   "prefix": "VIP-",
   "quantity": 3,
   "expires_in": 48
 }
-
+```
 Success Response (201):
-
+```json
 {
   "message": "successfully generated your keys!",
   "generated_keys": [
@@ -118,110 +105,100 @@ Success Response (201):
     "VIP-ZZZZ"
   ]
 }
-
----
-
-### Internal Behavior
-
-- Keys are generated using `gen_random_string(16)`
-- expires_in (hours) is converted to ISO timestamp
-- Stored fields:
-    duration → original hours value
-    expires_in → ISO date
-- All keys are created with:
-    premium: true
-
+```
 ---
 
 ## DELETE /public/delete-key
 
-Delete a key from your service.
+Delete a key belonging to your service.
 
 ### Body
-
+```json
 {
   "key": "KEY_STRING"
 }
-
+```
 ### Success (200)
-
+```json
 {
   "message": "successfully deleted the key",
   "key": "KEY_STRING"
 }
+```
+### Possible Errors
 
-### Errors
-
-400 → invalid body  
-404 → key not found  
-500 → database error  
+400 → Invalid body  
+404 → Key not found  
+500 → Internal error  
 
 ---
 
 # 🚫 Blacklist
 
-Blacklist is stored in `authenticated_users.blacklist` as an array.
+The blacklist contains blocked HWIDs for your service.
 
-Structure:
-
+Each entry:
+```json
 {
   "hwid": "string",
-  "expires_in": "Date | null"
+  "expires_in": "ISO Date string | null"
 }
+```
 
 ---
 
 ## POST /public/blacklist
 
-Add HWID to blacklist.
+Add an HWID to the blacklist.
 
 ### Body
-
+```json
 {
   "hwid": "HWID_STRING",
   "expires_in": 24
 }
-
-expires_in = hours (optional)
+```
+- `hwid` is required
+- `expires_in` is optional (hours until automatic removal)
 
 ### Success (200)
-
+```json
 {
   "message": "successfully updated your blacklist"
 }
-
+```
 ---
 
 ## DELETE /public/blacklist
 
-Remove HWID from blacklist.
+Remove an HWID from the blacklist.
 
 ### Body
-
+```json
 {
   "hwid": "HWID_STRING"
 }
-
+```
 ### Success (200)
-
+```json
 {
   "message": "successfully updated your blacklist"
 }
-
-If not found (404):
-
+```
+If the HWID is not found (404):
+```json
 {
   "message": "This HWID is not in blacklist."
 }
-
+```
 ---
 
 ## GET /public/blacklist
 
-Retrieve your blacklist.
+Retrieve the current blacklist.
 
 ### Success (200)
-
+```json
 {
   "message": "successfully caught your blacklist",
   "blacklist": [
@@ -231,19 +208,20 @@ Retrieve your blacklist.
     }
   ]
 }
-
+```
 ---
 
 # 🏓 Ping
 
 ## GET /public/ping
 
-Used to validate authentication and fetch service info.
+Used to validate authentication and fetch service metadata.
 
 ### Success (200)
-
+```json
 {
   "message": "pong!",
   "service_id": "your_service_id",
   "settings": { ... }
 }
+```
