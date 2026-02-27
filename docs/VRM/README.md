@@ -42,9 +42,9 @@ When the **"Key System"** option is enabled during upload, your script will auto
 Validates a user key.
 
 ### Syntax
-
+```lua
     local result = VRM.verify_key(key)
-
+```
 ### Parameters
 
 | Name | Type   | Required | Description |
@@ -52,13 +52,13 @@ Validates a user key.
 | key  | string | Yes      | The key provided by the user |
 
 ### Returns
-
+```lua
     {
         discord_id = string,
         premium = boolean,
         valid = boolean
     }
-
+```
 ### Return Fields
 
 | Field        | Type    | Description |
@@ -68,7 +68,7 @@ Validates a user key.
 | valid       | boolean | Indicates whether the key is valid |
 
 ### Example
-
+```lua
     local data = VRM.verify_key(userKey)
 
     if not data.valid then
@@ -81,7 +81,7 @@ Validates a user key.
     if data.premium then
         print("Premium features unlocked.")
     end
-
+```
 ---
 
 ## 🔗 VRM.copy_link
@@ -91,9 +91,9 @@ Generates a monetized access link.
 ⚠️ The selected mode must be configured in your dashboard.
 
 ### Syntax
-
+```lua
     local link = VRM.copy_link(mode)
-
+```
 ### Available Modes
 
 - `"linkvertise"`
@@ -107,10 +107,10 @@ Generates a monetized access link.
 | string | Generated shortened link |
 
 ### Example
-
+```lua
     local link = VRM.copy_link("linkvertise")
     print("Complete the steps here:", link)
-
+```
 ---
 
 # 🔄 Update Checker
