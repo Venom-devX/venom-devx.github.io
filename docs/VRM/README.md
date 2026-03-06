@@ -16,7 +16,7 @@ When uploading your script, you may enable:
 - ✅ **Key System**
 - ✅ **Update Checker**
 - ✅ **Admin Library**
-- 
+
 If enabled, the selected system will be automatically injected into your script before distribution.
 
 No manual setup is required inside your Lua file.
