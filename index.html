@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Venom — Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
+
 :root{
 --bg:#06060a;
 --accent1:#7c3aed;
@@ -13,19 +15,21 @@
 --glass:rgba(255,255,255,0.04);
 --muted:#9aa0a6;
 }
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Inter,sans-serif;
 }
+
 html,body{
 height:100%;
 background:var(--bg);
 color:white;
 overflow-x:hidden;
-transition:0.3s;
 }
+
 canvas{
 position:fixed;
 top:0;
@@ -34,6 +38,7 @@ width:100%;
 height:100%;
 z-index:-2;
 }
+
 .bg{
 position:fixed;
 inset:0;
@@ -42,12 +47,14 @@ radial-gradient(circle at 20% 20%,rgba(96,165,250,0.1),transparent),
 radial-gradient(circle at 80% 60%,rgba(124,58,237,0.1),transparent);
 z-index:-3;
 }
+
 nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:30px 8%;
 }
+
 .logo{
 font-weight:800;
 font-size:20px;
@@ -55,14 +62,18 @@ background:linear-gradient(90deg,var(--accent2),var(--accent1));
 -webkit-background-clip:text;
 color:transparent;
 }
+
 nav a{
 color:var(--muted);
 text-decoration:none;
 margin-left:20px;
 font-weight:600;
-transition:0.2s;
 }
-nav a:hover{color:white;}
+
+nav a:hover{
+color:white;
+}
+
 .hero{
 min-height:85vh;
 display:flex;
@@ -72,6 +83,7 @@ justify-content:center;
 text-align:center;
 padding:0 8%;
 }
+
 .avatar{
 width:150px;
 height:150px;
@@ -80,6 +92,7 @@ object-fit:cover;
 border:3px solid rgba(255,255,255,0.08);
 box-shadow:0 0 40px rgba(124,58,237,0.3);
 }
+
 h1{
 font-size:65px;
 margin-top:20px;
@@ -88,16 +101,19 @@ background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
 -webkit-background-clip:text;
 color:transparent;
 }
+
 .hero p{
 margin-top:15px;
 max-width:700px;
 color:var(--muted);
 }
+
 .links{
 margin-top:20px;
 display:flex;
 gap:10px;
 }
+
 .btn{
 padding:10px 16px;
 border-radius:10px;
@@ -108,10 +124,12 @@ color:white;
 font-weight:600;
 transition:.2s;
 }
+
 .btn:hover{
 background:var(--accent1);
 transform:translateY(-2px);
 }
+
 .banner{
 margin-top:40px;
 width:100%;
@@ -121,17 +139,29 @@ border-radius:16px;
 overflow:hidden;
 box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
+
 .banner img{
 width:100%;
 height:100%;
 object-fit:cover;
 display:block;
 }
+
 @media(max-width:700px){
-.banner{height:200px;}
+.banner{
+height:200px;
 }
-section{padding:90px 8%;}
-h2{font-size:32px;margin-bottom:30px;}
+}
+
+section{
+padding:90px 8%;
+}
+
+h2{
+font-size:32px;
+margin-bottom:30px;
+}
+
 .skills span{
 display:inline-block;
 background:var(--glass);
@@ -141,13 +171,21 @@ margin:5px;
 font-size:14px;
 transition:.2s;
 }
-.skills span:hover{background:var(--accent1);}
+
+.skills span:hover{
+background:var(--accent1);
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:25px;
 }
-.card{perspective:1000px;}
+
+.card{
+perspective:1000px;
+}
+
 .card-inner{
 background:var(--glass);
 padding:25px;
@@ -158,15 +196,28 @@ transition:transform .25s ease;
 display:flex;
 flex-direction:column;
 }
+
 .card-inner .btn{
 margin-top:16px;
 align-self:flex-start;
 font-size:13px;
 padding:8px 14px;
 }
-.card h3{margin-bottom:8px;}
-.card p{font-size:14px;color:var(--muted);}
-.tags{margin-top:10px;margin-bottom:8px;}
+
+.card h3{
+margin-bottom:8px;
+}
+
+.card p{
+font-size:14px;
+color:var(--muted);
+}
+
+.tags{
+margin-top:10px;
+margin-bottom:8px;
+}
+
 .tag{
 display:inline-block;
 font-size:12px;
@@ -175,7 +226,13 @@ padding:6px 10px;
 border-radius:8px;
 margin:4px;
 }
-footer{ text-align:center;padding:60px;color:var(--muted);}
+
+footer{
+text-align:center;
+padding:60px;
+color:var(--muted);
+}
+
 #cursor{
 position:fixed;
 width:40px;
@@ -187,27 +244,32 @@ pointer-events:none;
 z-index:999;
 transform:translate(-50%,-50%);
 }
+
 .reveal{
 opacity:0;
 transform:translateY(60px);
 transition:opacity .9s ease,transform .9s ease;
 }
+
 .reveal.show{
 opacity:1;
 transform:translateY(0);
 }
+
 .open{
 background:linear-gradient(90deg,#22c55e,#4ade80);
 color:black;
 font-weight:700;
 margin-left:8px;
 }
+
 .project-stats{
 display:flex;
 gap:8px;
 margin-top:10px;
 flex-wrap:wrap;
 }
+
 .project-stats span{
 font-size:12px;
 padding:6px 10px;
@@ -216,6 +278,7 @@ background:rgba(124,58,237,0.15);
 color:#c4b5fd;
 font-weight:600;
 }
+
 .project-banner{
 width:100%;
 height:140px;
@@ -225,10 +288,12 @@ margin-bottom:14px;
 display:block;
 transition:.3s;
 }
+
 .card:hover .project-banner{
 transform:scale(1.03);
 filter:brightness(1.05);
 }
+
 .loadstring-box{
 margin-top:12px;
 background:rgba(0,0,0,0.4);
@@ -241,10 +306,12 @@ justify-content:space-between;
 align-items:center;
 gap:8px;
 }
+
 .loadstring-box code{
 color:#a78bfa;
 word-break:break-all;
 }
+
 .copy-btn{
 background:var(--accent1);
 border:none;
@@ -255,151 +322,293 @@ border-radius:6px;
 cursor:pointer;
 font-size:11px;
 }
-.copy-btn:hover{background:#6d28d9;}
+
+.copy-btn:hover{
+background:#6d28d9;
+}
+
 .showcase{
 background:linear-gradient(90deg,#7c3aed,#60a5fa);
 }
+
 .showcase:hover{
 transform:translateY(-2px);
 filter:brightness(1.1);
 }
-html[data-theme="light"] {
---bg: #f5f5f5;
---accent1: #7c3aed;
---accent2: #60a5fa;
---glass: rgba(255, 255, 255, 0.08);
---muted: #555;
-}
-html[data-theme="light"] body{color:#111;}
-html[data-theme="light"] .btn{color:#111;background:var(--glass);}
-html[data-theme="light"] .btn:hover{background:var(--accent1);color:white;}
-html[data-theme="light"] #cursor{background:radial-gradient(circle,#7c3aed55,#60a5fa33);filter:blur(20px);}
-html[data-theme="light"] .card-inner{border:1px solid rgba(0,0,0,0.05);}
-html[data-theme="light"] .skills span{background:rgba(0,0,0,0.05);}
-html[data-theme="light"] .skills span:hover{background:var(--accent1);}
-#theme-toggle{
-width:40px;
-height:40px;
-border-radius:50%;
-border:1px solid rgba(255,255,255,0.1);
-background:var(--glass);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-transition:.3s;
-cursor:pointer;
-}
-#theme-toggle:hover{
-transform:scale(1.1);
-background:var(--accent1);
-color:white;
-box-shadow:0 0 12px var(--accent1);
-}
+
 </style>
 </head>
+
 <body>
+
 <div class="bg"></div>
 <canvas id="particles"></canvas>
 <div id="cursor"></div>
+
 <nav>
 <div class="logo">Venom.dev</div>
 <div>
 <a href="#skills">Skills</a>
 <a href="#projects">Projects</a>
 <a href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
-<button id="theme-toggle">🌙</button>
 </div>
 </nav>
+
 <section class="hero reveal">
+
 <img src="https://github.com/Venom-DevX.png" class="avatar">
+
 <h1>Venom</h1>
-<p>Developer passionate about programming, security and reverse engineering on Roblox. Building powerful tools, protection systems and backend systems.</p>
+
+<p>
+Developer passionate about programming, security and reverse engineering on Roblox. Building powerful tools, protection systems and backend systems.
+</p>
+
 <div class="links">
 <a class="btn" href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
 <a class="btn" href="https://discord.com/users/1126266231322837113" target="_blank">Discord</a>
 </div>
+
 <div class="banner">
-<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482953581387579502/a51845e3f58f0753ae695fbe47dfda72.jpg">
+<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482953581387579502/a51845e3f58f0753ae695fbe47dfda72.jpg?ex=69b8d3a5&is=69b78225&hm=6967504ebc643faf1c48d77f6da62e6ae5c8dd92a22bee41b2d9942cd7f78309&">
 </div>
+
 </section>
+
 <section id="about" class="reveal">
+
 <h2>About Me</h2>
-<p>I'm a developer focused on backend systems, security and reverse engineering. I started programming through games and quickly became passionate about building complex systems, protection mechanisms and scalable backends. Today I develop tools, APIs and security systems mainly for Roblox and web platforms, always focusing on performance, architecture and protection against reverse engineering.</p>
+
+<p>
+I'm a developer focused on backend systems, security and reverse engineering.
+
+I started programming through games and quickly became passionate about
+building complex systems, protection mechanisms and scalable backends.
+
+Today I develop tools, APIs and security systems mainly for Roblox and
+web platforms, always focusing on performance, architecture and protection
+against reverse engineering.
+</p>
+
 </section>
+  
 <section id="skills" class="reveal">
+
 <h2>Skills</h2>
+
 <div class="skills">
-<span>Lua</span><span>JavaScript</span><span>TypeScript</span><span>Node.js</span><span>Security</span><span>Reverse Engineering</span><span>WebSocket</span><span>Roblox</span>
+<span>Lua</span>
+<span>JavaScript</span>
+<span>TypeScript</span>
+<span>Node.js</span>
+<span>Security</span>
+<span>Reverse Engineering</span>
+<span>WebSocket</span>
+<span>Roblox</span>
 </div>
+
 </section>
+
 <section id="projects" class="reveal">
+
 <h2>Projects</h2>
+
 <div class="grid">
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
+
 <h3>Chaos Hub Brookhaven</h3>
-<p>The biggest Brookhaven script with optimized UI and powerful internals.</p>
-<div class="project-stats"><span>1M+ executions</span><span>8K+ Discord members</span></div>
-<div class="tags"><span class="tag">Lua</span><span class="tag">Roblox</span></div>
-<a class="btn showcase" href="https://youtu.be/lGgzmvKEGbI" target="_blank">Showcase</a>
+
+<p>
+The biggest Brookhaven script with optimized UI and powerful internals.
+</p>
+  
+<div class="project-stats">
+<span>1M+ executions</span>
+<span>8K+ Discord members</span>
+</div>
+
+<div class="tags">
+<span class="tag">Lua</span>
+<span class="tag">Roblox</span>
+</div>
+
+<a class="btn showcase" href="https://youtu.be/lGgzmvKEGbI" target="_blank">
+Showcase
+</a>
+
 <div class="loadstring-box">
-<code id="chaos-load">loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua"))();</code>
+<code id="chaos-load">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua"))();
+</code>
 <button class="copy-btn" onclick="copyChaos()">Copy</button>
 </div>
+
 </div>
 </div>
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Lua Guardian</h3>
 <p>Advanced obfuscation and runtime anti-hooking protection system.</p>
-<div class="tags"><span class="tag">Node.js</span><span class="tag">Library code injection</span><span class="tag">express</span><span class="tag">JWT</span><span class="tag">PostgreSQL</span><span class="tag">Security</span><span class="tag">Luau</span></div>
-<a class="btn" href="https://lua-guardian.shardweb.app/" target="_blank">View page</a>
+<div class="tags">
+<span class="tag">Node.js</span>
+<span class="tag">Library code injection</span>
+<span class="tag">express</span>
+<span class="tag">JWT</span>
+<span class="tag">PostgreSQL</span>
+<span class="tag">Security</span>
+<span class="tag">Luau</span>
+</div>
+
+<a class="btn" href="https://lua-guardian.shardweb.app/" target="_blank">
+View page
+</a>
+
 </div>
 </div>
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
+
 <h3>Chat System <span class="tag open">Open-Source</span></h3>
 <p>Custom WebSocket backend with modular request handling.</p>
-<div class="tags"><span class="tag">Node.js</span><span class="tag">TypeScript</span><span class="tag">WebSocket</span></div>
-<a class="btn" href="https://github.com/Venom-DevX/ChatSystem" target="_blank">View on GitHub</a>
+
+<div class="tags">
+<span class="tag">Node.js</span>
+<span class="tag">TypeScript</span>
+<span class="tag">WebSocket</span>
+</div>
+
+<a class="btn" href="https://github.com/Venom-DevX/ChatSystem" target="_blank">
+View on GitHub
+</a>
+
 </div>
 </div>
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Luau Protection Solutions</h3>
 <p>Techniques for protecting Lua scripts against reverse engineering.</p>
-<div class="tags"><span class="tag">Luau</span><span class="tag">Security</span></div>
+<div class="tags">
+<span class="tag">Luau</span>
+<span class="tag">Security</span>
 </div>
 </div>
+</div>
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
+
 <h3>EduPanel</h3>
-<p>Secure school management API with authentication, RBAC access control and audit logging.</p>
-<a class="btn" href="https://frontend-school-system-1l9d.vercel.app/" target="_blank">View page</a>
+
+<p>
+Secure school management API with authentication, RBAC access control and audit logging.
+</p>
+<a class="btn" href="https://frontend-school-system-1l9d.vercel.app/" target="_blank">
+View page
+</a>
 </div>
 </div>
+
 </div>
+
 </section>
-<footer>© 2026 Venom</footer>
+
+<footer>
+© 2026 Venom
+</footer>
+
 <script>
+
 const canvas=document.getElementById("particles")
 const ctx=canvas.getContext("2d")
+
 canvas.width=window.innerWidth
 canvas.height=window.innerHeight
+
 let particles=[]
-for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4})}
-function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.x+=p.dx;p.y+=p.dy;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="white";ctx.fill()});requestAnimationFrame(animate)}
+
+for(let i=0;i<80;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+dx:(Math.random()-0.5)*0.4,
+dy:(Math.random()-0.5)*0.4
+})
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+particles.forEach(p=>{
+p.x+=p.dx
+p.y+=p.dy
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fillStyle="white"
+ctx.fill()
+})
+requestAnimationFrame(animate)
+}
+
 animate()
+
 const cursor=document.getElementById("cursor")
-document.addEventListener("mousemove",e=>{cursor.style.left=e.clientX+"px";cursor.style.top=e.clientY+"px"})
-document.querySelectorAll("[data-tilt]").forEach(card=>{const inner=card.querySelector(".card-inner");card.addEventListener("mousemove",e=>{const rect=card.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width;const y=(e.clientY-rect.top)/rect.height;const rotateX=(y-0.5)*-20;const rotateY=(x-0.5)*20;inner.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`});card.addEventListener("mouseleave",()=>{inner.style.transform="rotateX(0) rotateY(0)"})})
-const observer=new IntersectionObserver((entries)=>{entries.forEach((entry,i)=>{if(entry.isIntersecting){setTimeout(()=>{entry.target.classList.add("show")},i*120)}})},{threshold:0.15})
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el))
-function copyChaos(){const text=document.getElementById("chaos-load").innerText;navigator.clipboard.writeText(text);const btn=document.querySelector(".copy-btn");btn.innerText="Copied!";setTimeout(()=>{btn.innerText="Copy"},1500)}
-const themeBtn=document.getElementById("theme-toggle")
-if(localStorage.getItem("theme")){document.documentElement.setAttribute("data-theme",localStorage.getItem("theme"));themeBtn.innerText=localStorage.getItem("theme")==="light"?"🌙":"☀️"}
-themeBtn.addEventListener("click",()=>{const currentTheme=document.documentElement.getAttribute("data-theme");if(currentTheme==="light"){document.documentElement.setAttribute("data-theme","dark");localStorage.setItem("theme","dark");themeBtn.innerText="🌙"}else{document.documentElement.setAttribute("data-theme","light");localStorage.setItem("theme","light");themeBtn.innerText="☀️"}})
+
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px"
+cursor.style.top=e.clientY+"px"
+})
+
+document.querySelectorAll("[data-tilt]").forEach(card=>{
+const inner=card.querySelector(".card-inner")
+
+card.addEventListener("mousemove",e=>{
+const rect=card.getBoundingClientRect()
+
+const x=(e.clientX-rect.left)/rect.width
+const y=(e.clientY-rect.top)/rect.height
+
+const rotateX=(y-0.5)*-20
+const rotateY=(x-0.5)*20
+
+inner.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+})
+
+card.addEventListener("mouseleave",()=>{
+inner.style.transform="rotateX(0) rotateY(0)"
+})
+
+})
+
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach((entry,i)=>{
+if(entry.isIntersecting){
+setTimeout(()=>{
+entry.target.classList.add("show")
+},i*120)
+}
+})
+},{
+threshold:0.15
+})
+
+document.querySelectorAll(".reveal").forEach(el=>{
+observer.observe(el)
+})
+
+function copyChaos(){
+const text=document.getElementById("chaos-load").innerText
+navigator.clipboard.writeText(text)
+const btn=document.querySelector(".copy-btn")
+btn.innerText="Copied!"
+setTimeout(()=>{btn.innerText="Copy"},1500)
+}
+
 </script>
+
 </body>
 </html>
