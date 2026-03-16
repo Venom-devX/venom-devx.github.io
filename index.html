@@ -255,12 +255,14 @@ transition:opacity .9s ease,transform .9s ease;
 opacity:1;
 transform:translateY(0);
 }
+
 .open{
 background:linear-gradient(90deg,#22c55e,#4ade80);
 color:black;
 font-weight:700;
 margin-left:8px;
 }
+
 .project-stats{
 display:flex;
 gap:8px;
@@ -277,7 +279,7 @@ color:#c4b5fd;
 font-weight:600;
 }
 
-  .project-banner{
+.project-banner{
 width:100%;
 height:140px;
 object-fit:cover;
@@ -325,9 +327,15 @@ font-size:11px;
 background:#6d28d9;
 }
 
-  .showcase{
+.showcase{
 background:linear-gradient(90deg,#7c3aed,#60a5fa);
-  }
+}
+
+.showcase:hover{
+transform:translateY(-2px);
+filter:brightness(1.1);
+}
+
 </style>
 </head>
 
@@ -429,17 +437,17 @@ The biggest Brookhaven script with optimized UI and powerful internals.
 <a class="btn showcase" href="https://youtu.be/lGgzmvKEGbI" target="_blank">
 Showcase
 </a>
+
 <div class="loadstring-box">
 <code id="chaos-load">
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua"))();
 </code>
-
 <button class="copy-btn" onclick="copyChaos()">Copy</button>
 </div>
 
 </div>
 </div>
-  
+
 <div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Lua Guardian</h3>
@@ -458,6 +466,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/m
 
 <div class="card reveal" data-tilt>
 <div class="card-inner">
+<img class="project-banner" src="https://cdn.discordapp.com/attachments/1404493607850868816/1483098518569877576/image.png?ex=69b95aa1&is=69b80921&hm=c3b339f027a19b9f450ff51351f7c1eeb9b299a8b7bf8cc63974d23f6c0f380e&">
 <h3>Chat System <span class="tag open">Open-Source</span></h3>
 <p>Custom WebSocket backend with modular request handling.</p>
 
@@ -487,14 +496,15 @@ View on GitHub
 
 <div class="card reveal" data-tilt>
 <div class="card-inner">
+
+<img class="project-banner" src="...">
+
 <h3>EduPanel</h3>
-<p>Secure school management API with authentication, RBAC access control and audit logging.</p>
-<div class="tags">
-<span class="tag">Node.js</span>
-<span class="tag">Express</span>
-<span class="tag">PostgreSQL</span>
-<span class="tag">JWT</span>
-</div>
+
+<p>
+Secure school management API with authentication, RBAC access control and audit logging.
+</p>
+
 </div>
 </div>
 
@@ -588,7 +598,11 @@ observer.observe(el)
 function copyChaos(){
 const text=document.getElementById("chaos-load").innerText
 navigator.clipboard.writeText(text)
+const btn=document.querySelector(".copy-btn")
+btn.innerText="Copied!"
+setTimeout(()=>{btn.innerText="Copy"},1500)
 }
+
 </script>
 
 </body>
