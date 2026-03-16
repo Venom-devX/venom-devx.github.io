@@ -252,11 +252,10 @@ Developer passionate about programming, security and reverse engineering on Robl
 <div class="links">
 <a class="btn" href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
 <a class="btn" href="https://discord.com/users/1126266231322837113" target="_blank">Discord</a>
-</div>
 
-<div class="discord">
-<img id="discord-avatar">
-<div id="discord-status">Loading Discord status...</div>
+</div>
+<div class="banner">
+<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482952152962826250/1d4ab5d4c26472e60cd950849ae61a92.jpg?ex=69b8d251&is=69b780d1&hm=5e54d9e6071bcf1f5ff65af1296465a00c9cc8e1a8565f5afa8746312b540a4e&">
 </div>
 
 </section>
@@ -417,26 +416,6 @@ inner.style.transform="rotateX(0) rotateY(0)"
 })
 
 })
-
-async function discord(){
-try{
-
-const res=await fetch("https://api.lanyard.rest/v1/users/1126266231322837113")
-const data=await res.json()
-
-const user=data.data.discord_user
-
-const avatar=`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-
-document.getElementById("discord-avatar").src=avatar
-document.getElementById("discord-status").innerText=data.data.discord_status
-
-}catch(e){
-document.getElementById("discord-status").innerText="Discord unavailable"
-}
-}
-
-discord()
 
 </script>
 
