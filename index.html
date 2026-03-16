@@ -1,425 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Venom | Developer</title>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Venom — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-scroll-behavior:smooth;
-}
-
-body{
-background:#0a0a0f;
-color:white;
-overflow-x:hidden;
-}
-
-/* animated background */
-
-.bg{
-position:fixed;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle at 20% 20%, #3b82f6 0%, transparent 40%),
-radial-gradient(circle at 80% 60%, #9333ea 0%, transparent 40%),
-#0a0a0f;
-filter:blur(120px);
-opacity:.45;
-z-index:-2;
-}
-
-/* particles */
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
-/* navbar */
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:30px 10%;
-}
-
-.logo{
-font-size:22px;
-font-weight:800;
-background:linear-gradient(90deg,#60a5fa,#c084fc);
--webkit-background-clip:text;
-color:transparent;
-}
-
-nav a{
-color:#aaa;
-text-decoration:none;
-margin-left:25px;
-font-weight:500;
-transition:.3s;
-}
-
-nav a:hover{
-color:white;
-}
-
-/* hero */
-
-.hero{
-height:90vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-flex-direction:column;
-}
-
-.avatar{
-
-width:140px;
-height:140px;
-border-radius:50%;
-margin-bottom:25px;
-
-border:3px solid rgba(255,255,255,0.15);
-
-box-shadow:
-0 0 20px #7c3aed,
-0 0 60px #7c3aed;
-
-}
-
-.hero h1{
-font-size:70px;
-font-weight:800;
-background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
--webkit-background-clip:text;
-color:transparent;
-}
-
-.hero p{
-margin-top:20px;
-font-size:18px;
-color:#aaa;
-max-width:600px;
-}
-
-.links{
-margin-top:25px;
-}
-
-.links a{
-
-display:inline-block;
-margin:10px;
-padding:10px 18px;
-border-radius:8px;
-
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-
-text-decoration:none;
-color:white;
-
-transition:.3s;
-
-}
-
-.links a:hover{
-
-background:#7c3aed;
-
-transform:translateY(-3px);
-
-}
-
-/* sections */
-
-.section{
-padding:120px 10%;
-}
-
-.section h2{
-font-size:36px;
-margin-bottom:40px;
-}
-
-/* skills */
-
-.skills span{
-
-display:inline-block;
-
-background:rgba(255,255,255,0.06);
-
-padding:10px 15px;
-
-border-radius:10px;
-
-margin:6px;
-
-font-size:14px;
-
-transition:.3s;
-
-}
-
-.skills span:hover{
-
-background:#7c3aed;
-
-}
-
-/* projects */
-
-.grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
-gap:25px;
-
-}
-
-.project{
-
-background:rgba(255,255,255,0.05);
-
-border-radius:15px;
-
-padding:30px;
-
-border:1px solid rgba(255,255,255,0.08);
-
-transition:.3s;
-
-}
-
-.project:hover{
-
-transform:translateY(-8px) scale(1.02);
-
-border-color:#7c3aed;
-
-box-shadow:0 0 30px rgba(124,58,237,0.4);
-
-}
-
-.project h3{
-
-margin-bottom:10px;
-
-}
-
-.project p{
-
-color:#aaa;
-
-font-size:14px;
-
-}
-
-/* footer */
-
-footer{
-
-text-align:center;
-
-padding:60px;
-
-color:#777;
-
-}
-
+  :root{
+    --bg:#06060a;
+    --glass: rgba(255,255,255,0.04);
+    --accent1:#7c3aed;
+    --accent2:#60a5fa;
+    --muted:#9aa0a6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+  html,body{height:100%;background:var(--bg);color:#fff;overflow-x:hidden}
+  /* canvas & background */
+  .bg-grad{position:fixed;inset:0;z-index:-3;pointer-events:none;background:
+    radial-gradient(800px 400px at 12% 20%, rgba(96,165,250,0.09), transparent 12%),
+    radial-gradient(700px 350px at 85% 65%, rgba(124,58,237,0.08), transparent 12%)}
+  canvas#particles{position:fixed;inset:0;z-index:-2;pointer-events:none}
+  /* navbar */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:28px 6%;gap:16px}
+  .logo{font-weight:800;font-size:20px;background:linear-gradient(90deg,var(--accent2),var(--accent1));-webkit-background-clip:text;color:transparent}
+  nav .links a{color:var(--muted);text-decoration:none;margin-left:20px;font-weight:600}
+  nav .links a:hover{color:#fff}
+  /* hero */
+  .hero{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6%}
+  .avatar{width:152px;height:152px;border-radius:50%;border:3px solid rgba(255,255,255,0.08);box-shadow:0 12px 40px rgba(124,58,237,0.16),0 0 80px rgba(96,165,250,0.06);object-fit:cover}
+  h1{font-size:64px;margin-top:18px;font-weight:800;background:linear-gradient(90deg,var(--accent2),#a78bfa,#f472b6);-webkit-background-clip:text;color:transparent}
+  p.lead{margin-top:16px;color:var(--muted);max-width:760px}
+  .hero-links{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:10px 16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);text-decoration:none;color:#fff;font-weight:700}
+  .btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.06)}
+  /* github stats mini */
+  .stats{display:flex;gap:14px;margin-top:14px;align-items:center}
+  .stat{background:var(--glass);padding:10px 12px;border-radius:12px;font-size:14px;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+  /* discord card custom (no bg from lanyard) */
+  .discord-card{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:linear-gradient(90deg, rgba(124,58,237,0.06), rgba(96,165,250,0.03));border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(6px)}
+  .discord-av{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
+  .discord-info{font-size:14px;color:var(--muted)}
+  .presence-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle;box-shadow:0 0 8px rgba(0,0,0,0.6)}
+  .presence-online{background:#3ba55d;box-shadow:0 0 18px rgba(59,165,93,0.22)}
+  .presence-idle{background:#faa61a;box-shadow:0 0 18px rgba(250,166,26,0.18)}
+  .presence-dnd{background:#ed4245;box-shadow:0 0 18px rgba(237,66,69,0.18)}
+  .presence-offline{background:#747f8d;box-shadow:0 0 12px rgba(116,127,141,0.12)}
+  /* sections */
+  section{padding:80px 6%}
+  h2.section-title{font-size:30px;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  /* project card 3D */
+  .card{
+    perspective:1000px;
+  }
+  .card-inner{
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border-radius:14px;padding:22px;border:1px solid rgba(255,255,255,0.06);
+    transform-style:preserve-3d;transition:transform 280ms cubic-bezier(.2,.9,.3,1),box-shadow 280ms;
+    box-shadow:0 8px 30px rgba(2,6,23,0.6);
+  }
+  .card:hover .card-inner{box-shadow:0 28px 80px rgba(124,58,237,0.12)}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:13px;line-height:1.4}
+  .card .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;font-size:12px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+  /* cursor glow */
+  #cursor{position:fixed;pointer-events:none;z-index:9999;width:40px;height:40px;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen;filter:blur(20px);background:radial-gradient(circle,#7c3aed55,#60a5fa22);transition:width .12s,height .12s}
+  /* small responsive */
+  @media (max-width:720px){h1{font-size:44px}.avatar{width:110px;height:110px}.hero{padding-top:28px}}
 </style>
-
 </head>
-
 <body>
 
-<div class="bg"></div>
-
+<div class="bg-grad"></div>
 <canvas id="particles"></canvas>
+<div id="cursor"></div>
 
 <nav>
-
-<div class="logo">Venom.dev</div>
-
-<div>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
-</div>
-
+  <div class="logo">Venom.dev</div>
+  <div class="links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a class="btn ghost" href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
+  </div>
 </nav>
 
-<section class="hero">
+<main>
+  <section class="hero" id="top">
+    <img id="gh-avatar" class="avatar" src="https://github.com/Venom-DevX.png" alt="Venom avatar">
+    <h1 id="title">Venom</h1>
+    <p class="lead">Developer & security tinkerer focused on Lua, obfuscation, anti-hooking and large scripts for Roblox. Building protection systems, tools and fast backend services.</p>
 
-<img src="https://github.com/Venom-DevX.png" class="avatar">
+    <div class="hero-links" style="align-items:center;">
+      <a class="btn" href="https://github.com/Venom-DevX" target="_blank">View GitHub</a>
+      <a class="btn" href="https://discord.com/users/1126266231322837113" target="_blank">Open Discord</a>
+      <div id="github-stats" class="stats" aria-hidden="true" style="margin-left:8px"></div>
+    </div>
 
-<h1>Venom</h1>
+    <div style="margin-top:18px">
+      <!-- custom discord card (we fill by JS) -->
+      <div id="discord-root" class="discord-card" aria-live="polite">
+        <img id="discord-avatar" class="discord-av" src="" alt="Discord avatar" />
+        <div class="discord-info">
+          <div id="discord-userline"><strong>Discord</strong></div>
+          <div id="discord-statusline" style="margin-top:6px;color:var(--muted);font-size:13px">status unavailable</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<p>
-Developer passionate about programming, security and reverse engineering on Roblox.
-Building powerful tools, protection systems and large-scale scripts.
-</p>
+  <section id="skills">
+    <h2 class="section-title">🛠 Skills</h2>
+    <div class="grid" style="grid-template-columns:1fr">
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="tag">Lua</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">Node.js</span>
+        <span class="tag">Security</span><span class="tag">Reverse Engineering</span><span class="tag">WebSocket</span><span class="tag">Roblox</span>
+      </div>
+    </div>
+  </section>
 
-<div class="links">
+  <section id="projects">
+    <h2 class="section-title">🔥 Featured Projects</h2>
+    <div class="grid" id="projects-grid">
+      <!-- project card example -->
+      <div class="card" data-tilt>
+        <div class="card-inner">
+          <h3>Chaos Hub Brookhaven</h3>
+          <p>The biggest Brookhaven script with optimized UI and powerful internals.</p>
+          <div class="tags"><span class="tag">Lua</span><span class="tag">Roblox</span></div>
+        </div>
+      </div>
 
-<a href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
+      <div class="card" data-tilt>
+        <div class="card-inner">
+          <h3>Lua Guardian</h3>
+          <p>Advanced obfuscation & runtime anti-injection / anti-hooking layers.</p>
+          <div class="tags"><span class="tag">Security</span><span class="tag">Obfuscation</span></div>
+        </div>
+      </div>
 
-<a href="https://discord.com/users/1126266231322837113" target="_blank">Discord</a>
+      <div class="card" data-tilt>
+        <div class="card-inner">
+          <h3>Chat System</h3>
+          <p>Custom WebSocket backend with modular, type-safe command loading.</p>
+          <div class="tags"><span class="tag">WebSocket</span><span class="tag">Node.js</span></div>
+        </div>
+      </div>
 
-</div>
+      <div class="card" data-tilt>
+        <div class="card-inner">
+          <h3>Lua Protection Solutions</h3>
+          <p>Techniques for protecting Lua scripts against static and dynamic analysis.</p>
+          <div class="tags"><span class="tag">Anti-hook</span><span class="tag">Integrity</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div style="margin-top:30px">
-
-<img src="https://lanyard.cnrad.dev/api/1126266231322837113?animated=true&theme=dark&borderRadius=15px">
-
-</div>
-
-</section>
-
-<section class="section" id="skills">
-
-<h2>🛠 Skills</h2>
-
-<div class="skills">
-
-<span>Lua</span>
-<span>JavaScript</span>
-<span>TypeScript</span>
-<span>WebSocket</span>
-<span>Node.js</span>
-<span>Security</span>
-<span>Reverse Engineering</span>
-<span>Roblox</span>
-
-</div>
-
-</section>
-
-<section class="section" id="projects">
-
-<h2>🔥 Featured Projects</h2>
-
-<div class="grid">
-
-<div class="project">
-
-<h3>Chaos Hub Brookhaven</h3>
-
-<p>
-The biggest Brookhaven script featuring optimized UI and powerful internal architecture.
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>Lua Guardian</h3>
-
-<p>
-High-end Lua protection system with advanced obfuscation and runtime security checks.
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>Lua Protection Solutions</h3>
-
-<p>
-Security techniques to protect scripts against reverse engineering.
-</p>
-
-</div>
-
-<div class="project">
-
-<h3>Chat System</h3>
-
-<p>
-Custom WebSocket backend with modular and type-safe architecture.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 Venom — Developer Portfolio
-
-</footer>
+  <footer style="padding:56px 6%;text-align:center;color:var(--muted)">© 2026 Venom — Developer Portfolio</footer>
+</main>
 
 <script>
+/* --------------------------
+   Helper: small DOM utils
+   --------------------------*/
+const $ = (s,root=document)=>root.querySelector(s);
+const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
 
-/* particles background */
-
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-
-particles.push({
-
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-dx:(Math.random()-0.5)*0.5,
-dy:(Math.random()-0.5)*0.5
-
-})
-
+/* --------------------------
+   Particles (subtle)
+   --------------------------*/
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let W=canvas.width=innerWidth, H=canvas.height=innerHeight;
+window.addEventListener('resize',()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight; initParticles();});
+let particles=[];
+function initParticles(){
+  particles=[];
+  const count = Math.max(40, Math.floor((W*H)/90000));
+  for(let i=0;i<count;i++) particles.push({
+    x:Math.random()*W, y:Math.random()*H,
+    r: 0.6 + Math.random()*1.8,
+    vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2,
+    alpha:0.08+Math.random()*0.22
+  });
 }
+function drawParticles(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+    if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(255,255,255,'+p.alpha+')';
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(drawParticles);
+}
+initParticles(); drawParticles();
 
-function animate(){
+/* --------------------------
+   Cursor glow
+   --------------------------*/
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e=>{
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.addEventListener('mousedown', ()=>{ cursor.style.width='80px'; cursor.style.height='80px'; });
+document.addEventListener('mouseup', ()=>{ cursor.style.width='40px'; cursor.style.height='40px'; });
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+/* --------------------------
+   GitHub API for stats/avatar
+   --------------------------*/
+const GITHUB_USER = 'Venom-DevX';
+async function fetchGitHub(){
+  try{
+    const res = await fetch('https://api.github.com/users/' + GITHUB_USER);
+    if(!res.ok) throw new Error('github fetch fail');
+    const j = await res.json();
+    // avatar already set to your provided PNG, but update extras
+    $('#gh-avatar').src = j.avatar_url || $('#gh-avatar').src;
+    const stats = document.createElement('div');
+    stats.className = 'stat';
+    stats.innerHTML = `⭐ ${j.stargazers_count ?? 0} • repos ${j.public_repos ?? 0} • followers ${j.followers ?? 0}`;
+    $('#github-stats').appendChild(stats);
+  }catch(e){
+    console.warn('GitHub fetch error', e);
+  }
+}
+fetchGitHub();
 
-particles.forEach(p=>{
+/* --------------------------
+   Discord presence via Lanyard JSON (we render custom card)
+   - removes background / external widget issues
+   --------------------------*/
+const DISCORD_ID = '1126266231322837113';
+async function fetchDiscord(){
+  try{
+    const res = await fetch('https://api.lanyard.rest/v1/users/' + DISCORD_ID);
+    if(!res.ok) throw new Error('lanyard fetch fail');
+    const data = await res.json();
+    if(!data || !data.data) throw new Error('no lanyard data');
+    const d = data.data;
+    // compute avatar url: discord CDN base
+    const discordUser = d.discord_user || {};
+    let avatarURL = '';
+    if(discordUser.avatar){
+      const format = discordUser.avatar.startsWith('a_') ? 'gif' : 'png';
+      avatarURL = `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.${format}?size=512`;
+    } else {
+      // default avatar
+      const discr = parseInt(discordUser.discriminator || '0') % 5;
+      avatarURL = `https://cdn.discordapp.com/embed/avatars/${discr}.png`;
+    }
+    // presence
+    const status = d.discord_status || 'offline';
+    // activities: pick custom status if present
+    let statusText = '';
+    if(d.activities && d.activities.length){
+      const cs = d.activities.find(a=>a.type===4) || d.activities[0]; // type 4 is custom
+      if(cs){
+        statusText = cs.name ? (cs.name + (cs.state ? ' — '+cs.state : '')) : (cs.state || '');
+      }
+    }
+    if(!statusText) {
+      if(status === 'online') statusText = 'Online';
+      else if(status === 'idle') statusText = 'Idle';
+      else if(status === 'dnd') statusText = 'Do Not Disturb';
+      else statusText = 'Offline';
+    }
+    // update DOM (only the avatar image + text; NO widget bg)
+    $('#discord-avatar').src = avatarURL;
+    $('#discord-userline').innerHTML = `<strong>${discordUser.username || 'Discord' }#${discordUser.discriminator || ''}</strong>`;
+    const st = $('#discord-statusline');
+    st.innerHTML = `<span class="presence-dot ${status==='online'?'presence-online':status==='idle'?'presence-idle':status==='dnd'?'presence-dnd':'presence-offline'}"></span>${statusText}`;
+  }catch(err){
+    console.warn('discord fetch failed', err);
+    $('#discord-avatar').src = 'https://github.com/Venom-DevX.png'; // fallback
+    $('#discord-userline').innerText = 'Discord';
+    $('#discord-statusline').innerText = 'Status unavailable';
+  }
+}
+fetchDiscord();
 
-p.x+=p.dx;
-p.y+=p.dy;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="white";
-ctx.fill();
-
+/* --------------------------
+   3D tilt for cards (smooth)
+   --------------------------*/
+const cards = $$('[data-tilt]');
+cards.forEach(card=>{
+  const inner = card.querySelector('.card-inner');
+  let rect = null;
+  let raf = null;
+  function onMove(e){
+    if(!rect) rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width; // 0..1
+    const y = (e.clientY - rect.top) / rect.height;
+    const rx = ( (y - 0.5) * -20 ); // rotateX
+    const ry = ( (x - 0.5) * 20 );  // rotateY
+    const tx = (x - 0.5) * -6; // translateX for parallax
+    const ty = (y - 0.5) * -6;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(()=> {
+      inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translate3d(${tx}px,${ty}px,0px)`;
+    });
+  }
+  function onLeave(){
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(()=> inner.style.transform = `rotateX(0deg) rotateY(0deg) translate3d(0,0,0)`);
+  }
+  card.addEventListener('mousemove', onMove);
+  card.addEventListener('mouseleave', onLeave);
+  // touch fallback: small tilt on touch start
+  card.addEventListener('touchstart', e=>{ rect = card.getBoundingClientRect(); });
 });
 
-requestAnimationFrame(animate);
+/* --------------------------
+   Fancy: subtle parallax on mouse move for hero
+   --------------------------*/
+document.addEventListener('mousemove', (e)=>{
+  const px = (e.clientX / window.innerWidth - 0.5) * 8;
+  const py = (e.clientY / window.innerHeight - 0.5) * 8;
+  document.querySelector('.bg-grad').style.transform = `translate(${px}px,${py}px)`;
+}, {passive:true});
 
-}
-
-animate();
-
+/* --------------------------
+   Small accessibility / progressive enhancement
+   --------------------------*/
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ // reset transforms quickly
+    $$('.card-inner').forEach(el=> el.style.transform = '');
+  }
+});
 </script>
-
 </body>
 </html>
