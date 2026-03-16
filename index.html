@@ -277,6 +277,53 @@ color:#c4b5fd;
 font-weight:600;
 }
 
+  .project-banner{
+width:100%;
+height:140px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:14px;
+display:block;
+transition:.3s;
+}
+
+.card:hover .project-banner{
+transform:scale(1.03);
+filter:brightness(1.05);
+}
+
+.loadstring-box{
+margin-top:12px;
+background:rgba(0,0,0,0.4);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:10px;
+padding:10px;
+font-size:12px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
+}
+
+.loadstring-box code{
+color:#a78bfa;
+word-break:break-all;
+}
+
+.copy-btn{
+background:var(--accent1);
+border:none;
+color:white;
+font-weight:600;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+font-size:11px;
+}
+
+.copy-btn:hover{
+background:#6d28d9;
+}
 </style>
 </head>
 
@@ -359,6 +406,9 @@ against reverse engineering.
 <div class="card reveal" data-tilt>
 <div class="card-inner">
 
+<img class="project-banner"
+src="https://cdn.discordapp.com/attachments/1378555516195836075/1398329983444717738/chaos_hub_discord_banner.png">
+
 <h3>Chaos Hub Brookhaven</h3>
 
 <p>
@@ -375,9 +425,17 @@ The biggest Brookhaven script with optimized UI and powerful internals.
 <span class="tag">Roblox</span>
 </div>
 
-</div>
+<div class="loadstring-box">
+<code id="chaos-load">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua"))();
+</code>
+
+<button class="copy-btn" onclick="copyChaos()">Copy</button>
 </div>
 
+</div>
+</div>
+  
 <div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Lua Guardian</h3>
@@ -523,6 +581,10 @@ document.querySelectorAll(".reveal").forEach(el=>{
 observer.observe(el)
 })
 
+function copyChaos(){
+const text=document.getElementById("chaos-load").innerText
+navigator.clipboard.writeText(text)
+}
 </script>
 
 </body>
