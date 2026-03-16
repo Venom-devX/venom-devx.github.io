@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Venom — Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
 
 :root{
@@ -121,10 +122,12 @@ border:1px solid rgba(255,255,255,0.05);
 text-decoration:none;
 color:white;
 font-weight:600;
+transition:.2s;
 }
 
 .btn:hover{
 background:var(--accent1);
+transform:translateY(-2px);
 }
 
 .banner{
@@ -166,6 +169,11 @@ padding:10px 15px;
 border-radius:10px;
 margin:5px;
 font-size:14px;
+transition:.2s;
+}
+
+.skills span:hover{
+background:var(--accent1);
 }
 
 .grid{
@@ -184,7 +192,7 @@ padding:25px;
 border-radius:14px;
 border:1px solid rgba(255,255,255,0.05);
 transform-style:preserve-3d;
-transition:transform .2s;
+transition:transform .25s ease;
 }
 
 .card h3{
@@ -227,6 +235,17 @@ z-index:999;
 transform:translate(-50%,-50%);
 }
 
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:opacity .9s ease,transform .9s ease;
+}
+
+.reveal.show{
+opacity:1;
+transform:translateY(0);
+}
+
 </style>
 </head>
 
@@ -245,7 +264,7 @@ transform:translate(-50%,-50%);
 </div>
 </nav>
 
-<section class="hero">
+<section class="hero reveal">
 
 <img src="https://github.com/Venom-DevX.png" class="avatar">
 
@@ -258,15 +277,15 @@ Developer passionate about programming, security and reverse engineering on Robl
 <div class="links">
 <a class="btn" href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
 <a class="btn" href="https://discord.com/users/1126266231322837113" target="_blank">Discord</a>
-
 </div>
+
 <div class="banner">
-<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482953581387579502/a51845e3f58f0753ae695fbe47dfda72.jpg?ex=69b8d3a5&is=69b78225&hm=6967504ebc643faf1c48d77f6da62e6ae5c8dd92a22bee41b2d9942cd7f78309&">
+<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482953581387579502/a51845e3f58f0753ae695fbe47dfda72.jpg">
 </div>
 
 </section>
 
-<section id="skills">
+<section id="skills" class="reveal">
 
 <h2>Skills</h2>
 
@@ -283,13 +302,13 @@ Developer passionate about programming, security and reverse engineering on Robl
 
 </section>
 
-<section id="projects">
+<section id="projects" class="reveal">
 
 <h2>Projects</h2>
 
 <div class="grid">
 
-<div class="card" data-tilt>
+<div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Chaos Hub Brookhaven</h3>
 <p>The biggest Brookhaven script with optimized UI and powerful internals.</p>
@@ -300,7 +319,7 @@ Developer passionate about programming, security and reverse engineering on Robl
 </div>
 </div>
 
-<div class="card" data-tilt>
+<div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Lua Guardian</h3>
 <p>Advanced obfuscation and runtime anti-hooking protection system.</p>
@@ -316,7 +335,7 @@ Developer passionate about programming, security and reverse engineering on Robl
 </div>
 </div>
 
-<div class="card" data-tilt>
+<div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Chat System</h3>
 <p>Custom WebSocket backend with modular request handling.</p>
@@ -328,7 +347,7 @@ Developer passionate about programming, security and reverse engineering on Robl
 </div>
 </div>
 
-<div class="card" data-tilt>
+<div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>Luau Protection Solutions</h3>
 <p>Techniques for protecting Lua scripts against reverse engineering.</p>
@@ -339,7 +358,7 @@ Developer passionate about programming, security and reverse engineering on Robl
 </div>
 </div>
 
-<div class="card" data-tilt>
+<div class="card reveal" data-tilt>
 <div class="card-inner">
 <h3>EduPanel</h3>
 <p>Secure school management API with authentication, RBAC access control and audit logging.</p>
@@ -421,6 +440,22 @@ card.addEventListener("mouseleave",()=>{
 inner.style.transform="rotateX(0) rotateY(0)"
 })
 
+})
+
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach((entry,i)=>{
+if(entry.isIntersecting){
+setTimeout(()=>{
+entry.target.classList.add("show")
+},i*120)
+}
+})
+},{
+threshold:0.15
+})
+
+document.querySelectorAll(".reveal").forEach(el=>{
+observer.observe(el)
 })
 
 </script>
