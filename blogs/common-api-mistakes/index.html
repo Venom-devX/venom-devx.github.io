@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css"/>
 </head>
 <body>
 
@@ -44,7 +45,7 @@
           
           <div class="code-example">
             <div class="code-label error">The Mistake</div>
-            <pre><code>app.post('/update-profile', (req, res) => {
+            <pre><code class="language-javascript">app.post('/update-profile', (req, res) => {
   db.users.update(req.body); 
   res.send("Done");
 });</code></pre>
@@ -53,7 +54,7 @@
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>const profileSchema = zod.object({
+              <pre><code class="language-javascript">const profileSchema = zod.object({
   username: zod.string().min(3).max(20),
   age: zod.number().int().positive()
 });
@@ -74,7 +75,7 @@ app.post('/update-profile', async (req, res) => {
           
           <div class="code-example">
             <div class="code-label error">The Mistake</div>
-            <pre><code>app.get('/api/orders/:id', async (req, res) => {
+            <pre><code class="language-javascript">app.get('/api/orders/:id', async (req, res) => {
   const order = await db.orders.findById(req.params.id);
   res.json(order);
 });</code></pre>
@@ -83,7 +84,7 @@ app.post('/update-profile', async (req, res) => {
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>app.get('/api/orders/:id', async (req, res) => {
+              <pre><code class="language-javascript">app.get('/api/orders/:id', async (req, res) => {
   const order = await db.orders.findOne({
     _id: req.params.id,
     userId: req.user.id
@@ -103,7 +104,7 @@ app.post('/update-profile', async (req, res) => {
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> View Implementation</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>import { RateLimiterMemory } from 'rate-limiter-flexible';
+              <pre><code class="language-javascript">import { RateLimiterMemory } from 'rate-limiter-flexible';
 
 const rateLimiter = new RateLimiterMemory({
   points: 10, 
@@ -127,14 +128,14 @@ app.use('/api/', rateLimitMiddleware);</code></pre>
           
           <div class="code-example">
             <div class="code-label error">The Mistake</div>
-            <pre><code>const user = await db.users.find(id);
+            <pre><code class="language-javascript">const user = await db.users.find(id);
 res.json(user);</code></pre>
           </div>
 
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>const user = await db.users.find(id);
+              <pre><code class="language-javascript">const user = await db.users.find(id);
 const { password, internal_id, ssn, ...publicData } = user._doc;
 
 res.json(publicData);</code></pre>
@@ -148,7 +149,7 @@ res.json(publicData);</code></pre>
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Best Practice</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>// Correct Semantics
+              <pre><code class="language-javascript">// Correct Semantics
 GET    /users     -> Read
 POST   /users     -> Create
 PATCH  /users/:id -> Partial Update
@@ -164,7 +165,7 @@ DELETE /users/:id -> Remove</code></pre>
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>app.use((err, req, res, next) => {
+              <pre><code class="language-javascript">app.use((err, req, res, next) => {
   logger.error(err);
   res.status(500).json({
     message: "Internal Server Error",
@@ -181,7 +182,7 @@ DELETE /users/:id -> Remove</code></pre>
           <div class="fix-box">
             <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Implementation</span><i class="fa-solid fa-chevron-down arrow"></i></button>
             <div class="solution-container"><div class="solution-inner">
-              <pre><code>import v1Routes from './routes/v1';
+              <pre><code class="language-javascript">import v1Routes from './routes/v1';
 import v2Routes from './routes/v2';
 
 app.use('/api/v1', v1Routes);
@@ -195,5 +196,7 @@ app.use('/api/v2', v2Routes);</code></pre>
   </main>
 
   <script src="../script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-javascript.min.js"></script>
 </body>
 </html>
