@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Security & Best Practices | Venom's Tech Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <nav class="blog-nav">
+    <div class="nav-content">
+      <a href="#" class="logo">Venom<span>.dev</span></a>
+    </div>
+  </nav>
+
+  <main class="blog-container">
+    <article>
+      <header class="post-header">
+        <div class="tags">
+          <span class="tag">#Backend</span>
+          <span class="tag">#Security</span>
+          <span class="tag">#NodeJS</span>
+        </div>
+        <h1>7 Fatal API Mistakes You're Probably Making</h1>
+        <p class="subtitle">A guide to moving beyond "it works on my machine" to production-ready security.</p>
+        
+        <div class="post-meta">
+          <img src="https://github.com/Venom-DevX.png" alt="Venom" class="avatar">
+          <div class="meta-info">
+            <span class="author">Venom</span>
+            <span class="date">March 17, 2026 • 8 min read</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <section class="topic">
+          <h2>1. Lack of Input Validation</h2>
+          <p>Trusting user-provided data is the fastest way to compromise your system. Validation must happen before any business logic executes.</p>
+          
+          <div class="code-example">
+            <div class="code-label error">The Mistake</div>
+            <pre><code>app.post('/update-profile', (req, res) => {
+  db.users.update(req.body); 
+  res.send("Done");
+});</code></pre>
+          </div>
+
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>const profileSchema = zod.object({
+  username: zod.string().min(3).max(20),
+  age: zod.number().int().positive()
+});
+
+app.post('/update-profile', (req, res) => {
+  const data = profileSchema.parse(req.body);
+  db.users.update(data);
+  res.status(200).json({ success: true });
+});</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>2. Broken Object Level Authorization (BOLA)</h2>
+          <p>Just because a user is authenticated doesn't mean they are authorized to access every ID in your database.</p>
+          
+          <div class="code-example">
+            <div class="code-label error">The Mistake</div>
+            <pre><code>app.get('/api/orders/:id', async (req, res) => {
+  const order = await db.orders.findById(req.params.id);
+  res.json(order);
+});</code></pre>
+          </div>
+
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>app.get('/api/orders/:id', async (req, res) => {
+  const order = await db.orders.findOne({
+    _id: req.params.id,
+    userId: req.user.id
+  });
+
+  if (!order) return res.status(404).json({ error: "Order not found" });
+  res.json(order);
+});</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>3. Missing Rate Limiting</h2>
+          <p>Endpoints without limits are vulnerable to DDoS and brute-force attacks. Use flexible strategies to protect your infrastructure.</p>
+          
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> View Implementation</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>import { RateLimiterMemory } from 'rate-limiter-flexible';
+
+const rateLimiter = new RateLimiterMemory({
+  points: 10, 
+  duration: 1 
+});
+
+const rateLimitMiddleware = (req, res, next) => {
+  rateLimiter.consume(req.ip)
+    .then(() => next())
+    .catch(() => res.status(429).send('Too Many Requests'));
+};
+
+app.use('/api/', rateLimitMiddleware);</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>4. Improper Data Filtering</h2>
+          <p>Avoid leaking sensitive internal fields by strictly defining what your API returns.</p>
+          
+          <div class="code-example">
+            <div class="code-label error">The Mistake</div>
+            <pre><code>const user = await db.users.find(id);
+res.json(user);</code></pre>
+          </div>
+
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>const user = await db.users.find(id);
+const { password, internal_id, ssn, ...publicData } = user._doc;
+
+res.json(publicData);</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>5. Misusing HTTP Methods</h2>
+          <p>Adhering to REST semantics prevents caching issues and unexpected side effects from pre-fetching browsers.</p>
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Best Practice</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>// Correct Semantics
+GET    /users     -> Read
+POST   /users     -> Create
+PATCH  /users/:id -> Partial Update
+DELETE /users/:id -> Remove</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>6. Leaking Stack Traces</h2>
+          <p>Raw error messages provide a map of your infrastructure to potential attackers.</p>
+          
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Professional Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>app.use((err, req, res, next) => {
+  logger.error(err);
+  res.status(500).json({
+    message: "Internal Server Error",
+    trackingId: req.id
+  });
+});</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>7. Lack of API Versioning</h2>
+          <p>Always version your API to ensure backward compatibility as your data structures evolve.</p>
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Implementation</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code>import v1Routes from './routes/v1';
+import v2Routes from './routes/v2';
+
+app.use('/api/v1', v1Routes);
+app.use('/api/v2', v2Routes);</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <script src="../script.js"></script>
+</body>
+</html>

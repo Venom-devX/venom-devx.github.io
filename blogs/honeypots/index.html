@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honeypots & Security Tricks | Venom's Tech Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/themes/prism-tomorrow.min.css"/>
+</head>
+<body>
+
+  <nav class="blog-nav">
+    <div class="nav-content">
+      <a href="#" class="logo">Venom<span>.dev</span></a>
+    </div>
+  </nav>
+
+  <main class="blog-container">
+    <article>
+      <header class="post-header">
+        <div class="tags">
+          <span class="tag">#Security</span>
+          <span class="tag">#Honeypots</span>
+          <span class="tag">#Backend</span>
+        </div>
+        <h1>Deploying Honeypots to Catch Malicious Actors</h1>
+        <p class="subtitle">Learn how to use honeypots to detect, analyze, and defend against attackers targeting your APIs and products.</p>
+        
+        <div class="post-meta">
+          <img src="https://github.com/Venom-DevX.png" class="avatar">
+          <div class="meta-info">
+            <span class="author">Venom</span>
+            <span class="date">March 17, 2026 • 8 min read</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+
+        <section class="topic">
+          <h2>1. What is a Honeypot?</h2>
+          <p>A honeypot is a decoy system designed to lure attackers and study their behavior without risking real data.</p>
+        </section>
+
+        <section class="topic">
+          <h2>2. Low-Interaction vs High-Interaction Honeypots</h2>
+          <p>Low-interaction honeypots simulate only some services and are easy to deploy. High-interaction honeypots mimic real systems, giving attackers more freedom to interact.</p>
+          <div class="code-example">
+            <div class="code-label info">Low-Interaction Example</div>
+            <pre><code class="language-javascript">import http from 'http'
+
+http.createServer((req, res) => {
+  console.log(`Honeypot hit: ${req.method} ${req.url} from ${req.socket.remoteAddress}`)
+  res.statusCode = 200
+  res.end("Welcome!")
+}).listen(8080)</code></pre>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>3. Using Honeypots in Your API</h2>
+          <p>Deploy fake endpoints to detect unauthorized scans or attacks. Common targets include admin pages, product pricing endpoints, and sensitive API routes.</p>
+
+          <ul>
+            <li><strong>Fake Admin Pages:</strong> /admin-dashboard, /super-secret-login</li>
+            <li><strong>Nonexistent Product Prices:</strong> /products/ultra-luxury-item, /pricing/hidden-plan</li>
+            <li><strong>Sensitive Data Endpoints:</strong> /api/secret-tokens, /api/internal-config</li>
+          </ul>
+
+          <div class="code-example">
+            <div class="code-label error">The Mistake</div>
+            <pre><code class="language-javascript">app.get('/products/ultra-luxury-item', (req, res) => {
+  res.json({ price: 9999 })
+})</code></pre>
+          </div>
+
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-wand-magic-sparkles"></i> Show the Honeypot Fix</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code class="language-javascript">app.get('/admin-dashboard', (req, res) => {
+  console.log(`Honeypot triggered by IP: ${req.ip}`)
+  res.status(404).send("Not Found")
+})
+
+app.get('/products/ultra-luxury-item', (req, res) => {
+  const product_price = 9999
+  const price = req.query.price ? parseInt(req.query.price) : null
+
+  if (price !== product_price) {
+    console.log(`Honeypot triggered: user tried price ${price} from ${req.ip}`)
+    res.status(403).json({ error: "Forbidden" })
+  } else {
+    res.json({ price: product_price, available: false })
+  }
+})
+
+app.get('/api/secret-tokens', (req, res) => {
+  console.log(`Honeypot hit: ${req.ip}`)
+  res.status(403).send("Forbidden")
+})</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>4. Logging and Alerting</h2>
+          <p>Every hit on a honeypot should be logged with IP, user agent, timestamp, and attempted action. Alerts can notify you in real-time of suspicious activity.</p>
+          <div class="fix-box">
+            <button class="toggle-btn"><span><i class="fa-solid fa-bell"></i> Setup Alert Example</span><i class="fa-solid fa-chevron-down arrow"></i></button>
+            <div class="solution-container"><div class="solution-inner">
+              <pre><code class="language-javascript">app.get('/fake-login', (req, res) => {
+  const { ip, headers } = req
+  console.log(`Honeypot login attempt from ${ip}`, headers)
+  res.status(403).send("Forbidden")
+})</code></pre>
+            </div></div>
+          </div>
+        </section>
+
+        <section class="topic">
+          <h2>5. Best Practices</h2>
+          <ul>
+            <li>Keep honeypots isolated from real data.</li>
+            <li>Use realistic responses to trick attackers.</li>
+            <li>Continuously monitor and analyze logs.</li>
+            <li>Do not advertise the honeypot anywhere.</li>
+            <li>Use subtle logic checks (like if price !== expected_price) to detect tampering.</li>
+          </ul>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <script src="../script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-javascript.min.js"></script>
+</body>
+</html>
