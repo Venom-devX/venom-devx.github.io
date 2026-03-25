@@ -3,725 +3,737 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Venom — Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>venom.dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
---bg:#06060a;
---accent1:#7c3aed;
---accent2:#60a5fa;
---glass:rgba(255,255,255,0.04);
---muted:#9aa0a6;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-html,body{
-height:100%;
-background:var(--bg);
-color:white;
-overflow-x:hidden;
-}
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-}
-
-.bg{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 20%,rgba(96,165,250,0.1),transparent),
-radial-gradient(circle at 80% 60%,rgba(124,58,237,0.1),transparent);
-z-index:-3;
-}
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:30px 8%;
-}
-
-.logo{
-font-weight:800;
-font-size:20px;
-background:linear-gradient(90deg,var(--accent2),var(--accent1));
--webkit-background-clip:text;
-color:transparent;
-}
-
-nav a{
-color:var(--muted);
-text-decoration:none;
-margin-left:20px;
-font-weight:600;
-}
-
-nav a:hover{
-color:white;
-}
-
-.hero{
-min-height:85vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:0 8%;
-}
-
-.avatar{
-width:150px;
-height:150px;
-border-radius:50%;
-object-fit:cover;
-border:3px solid rgba(255,255,255,0.08);
-box-shadow:0 0 40px rgba(124,58,237,0.3);
-}
-
-h1{
-font-size:65px;
-margin-top:20px;
-font-weight:800;
-background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);
--webkit-background-clip:text;
-color:transparent;
-}
-
-.hero p{
-margin-top:15px;
-max-width:700px;
-color:var(--muted);
-}
-
-.links{
-margin-top:20px;
-display:flex;
-gap:10px;
-}
-
-.btn{
-padding:10px 16px;
-border-radius:10px;
-background:var(--glass);
-border:1px solid rgba(255,255,255,0.05);
-text-decoration:none;
-color:white;
-font-weight:600;
-transition:.2s;
-}
-
-.btn:hover{
-background:var(--accent1);
-transform:translateY(-2px);
-}
-
-.banner{
-margin-top:40px;
-width:100%;
-max-width:1100px;
-height:320px;
-border-radius:16px;
-overflow:hidden;
-box-shadow:0 20px 60px rgba(0,0,0,0.6);
-}
-
-.banner img{
-width:100%;
-height:100%;
-object-fit:cover;
-display:block;
-}
-
-@media(max-width:700px){
-.banner{
-height:200px;
-}
-}
-
-section{
-padding:90px 8%;
-}
-
-h2{
-font-size:32px;
-margin-bottom:30px;
-}
-
-.skills span{
-display:inline-block;
-background:var(--glass);
-padding:10px 15px;
-border-radius:10px;
-margin:5px;
-font-size:14px;
-transition:.2s;
-}
-
-.skills span:hover{
-background:var(--accent1);
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
-
-.card{
-perspective:1000px;
-}
-
-.card-inner{
-background:var(--glass);
-padding:25px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.05);
-transform-style:preserve-3d;
-transition:transform .25s ease;
-display:flex;
-flex-direction:column;
-}
-
-.card-inner .btn{
-margin-top:16px;
-align-self:flex-start;
-font-size:13px;
-padding:8px 14px;
-}
-
-.card h3{
-margin-bottom:8px;
-}
-
-.card p{
-font-size:14px;
-color:var(--muted);
-}
-
-.tags{
-margin-top:10px;
-margin-bottom:8px;
-}
-
-.tag{
-display:inline-block;
-font-size:12px;
-background:rgba(255,255,255,0.05);
-padding:6px 10px;
-border-radius:8px;
-margin:4px;
-}
-
-footer{
-text-align:center;
-padding:60px;
-color:var(--muted);
-}
-
-#cursor{
-position:fixed;
-width:40px;
-height:40px;
-border-radius:50%;
-background:radial-gradient(circle,#7c3aed55,#60a5fa11);
-filter:blur(18px);
-pointer-events:none;
-z-index:999;
-transform:translate(-50%,-50%);
-}
-
-.reveal{
-opacity:0;
-transform:translateY(60px);
-transition:opacity .9s ease,transform .9s ease;
-}
-
-.reveal.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.open{
-background:linear-gradient(90deg,#22c55e,#4ade80);
-color:black;
-font-weight:700;
-margin-left:8px;
-}
-
-.project-stats{
-display:flex;
-gap:8px;
-margin-top:10px;
-flex-wrap:wrap;
-}
-
-.project-stats span{
-font-size:12px;
-padding:6px 10px;
-border-radius:8px;
-background:rgba(124,58,237,0.15);
-color:#c4b5fd;
-font-weight:600;
-}
-
-.project-banner{
-width:100%;
-height:140px;
-object-fit:cover;
-border-radius:10px;
-margin-bottom:14px;
-display:block;
-transition:.3s;
-}
-
-.card:hover .project-banner{
-transform:scale(1.03);
-filter:brightness(1.05);
-}
-
-.loadstring-box{
-margin-top:12px;
-background:rgba(0,0,0,0.4);
-border:1px solid rgba(255,255,255,0.08);
-border-radius:10px;
-padding:10px;
-font-size:12px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px;
-}
-
-.loadstring-box code{
-color:#a78bfa;
-word-break:break-all;
-}
-
-.copy-btn{
-background:var(--accent1);
-border:none;
-color:white;
-font-weight:600;
-padding:6px 10px;
-border-radius:6px;
-cursor:pointer;
-font-size:11px;
-}
-
-.copy-btn:hover{
-background:#6d28d9;
-}
-
-.showcase{
-background:linear-gradient(90deg,#7c3aed,#60a5fa);
-}
-
-.showcase:hover{
-transform:translateY(-2px);
-filter:brightness(1.1);
-}
-
-  .music-player{
-  margin-top:20px;
-}
-
-.music-player .btn{
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,0.05);
-  color:white;
-  font-weight:600;
-  padding:10px 16px;
-  border-radius:10px;
-  transition:.2s;
-}
-
-.music-player .btn:hover{
-  background:var(--accent1);
-  transform:translateY(-2px);
-}
-
-  .discord-presence {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.discord-presence img:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
+:root {
+  --bg: #000000;
+  --bg-surface: #0a0a0f;
   
+  --accent-main: #00e5ff;
+  --accent-secondary: #2979ff;
+  --accent-glow: rgba(0, 229, 255, 0.4);
+  
+  --glass: rgba(10, 10, 15, 0.6);
+  --border-light: rgba(0, 229, 255, 0.15);
+  --border-hover: rgba(0, 229, 255, 0.5);
+  
+  --text-main: #f8f9fa;
+  --text-muted: #8b949e;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.cyber-grid {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: 
+    linear-gradient(to right, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -3;
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+.ambient-glow {
+  position: fixed;
+  top: -20%; left: 50%;
+  width: 60vw; height: 60vw;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(41, 121, 255, 0.08) 0%, transparent 70%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+nav {
+  position: fixed;
+  top: 0; width: 100%;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 100;
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.logo span { color: var(--accent-main); }
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+  font-family: var(--font-mono);
+}
+
+nav a:hover {
+  color: var(--accent-main);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 8%;
+  position: relative;
+}
+
+.avatar-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.avatar-container::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--accent-main), var(--accent-secondary));
+  z-index: -1;
+  filter: blur(15px);
+  opacity: 0.7;
+  animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.5; filter: blur(10px); }
+  100% { opacity: 0.8; filter: blur(20px); }
+}
+
+.avatar {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--accent-main);
+  color: var(--accent-main);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, #fff, #8b949e);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 600px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: transparent;
+  color: var(--accent-main);
+  border: 1px solid var(--accent-main);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.btn-primary:hover {
+  background: var(--accent-main);
+  color: var(--bg);
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--glass);
+  color: var(--text-main);
+  border: 1px solid var(--border-light);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+section {
+  padding: 100px 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.section-title::before {
+  content: '/>';
+  color: var(--accent-main);
+  font-family: var(--font-mono);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-main), transparent);
+  transform: translateX(-100%);
+  transition: 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--border-hover);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.05);
+}
+
+.card:hover::before {
+  transform: translateX(100%);
+}
+
+.card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.tag.highlight {
+  border-color: var(--accent-main);
+  color: var(--accent-main);
+  background: rgba(0, 229, 255, 0.05);
+}
+
+.terminal {
+  background: #050505;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.terminal code {
+  font-family: var(--font-mono);
+  color: var(--accent-main);
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.2s;
+}
+
+.copy-btn:hover {
+  color: var(--text-main);
+}
+
+.skills-container {
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+}
+.skills-container::before, .skills-container::after {
+  content: '';
+  position: absolute;
+  top: 0; width: 100px; height: 100%;
+  z-index: 2;
+}
+.skills-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.skills-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.skills-track {
+  display: flex;
+  gap: 30px;
+  animation: scroll 20s linear infinite;
+  width: max-content;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.skill-item {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-muted);
+  transition: 0.3s;
+  cursor: default;
+}
+
+.skill-item:hover {
+  -webkit-text-stroke: 1px var(--accent-main);
+  color: var(--accent-main);
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+#cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--accent-main);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--accent-main), 0 0 20px var(--accent-main);
+  transition: width 0.2s, height 0.2s;
+}
+
+#cursor-follower {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1px solid var(--accent-main);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out, width 0.2s, height 0.2s;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-light);
+  margin-top: 50px;
+}
+
+@media(max-width: 768px) {
+  nav { padding: 15px 5%; }
+  nav a { display: none; }
+  h1 { font-size: 2.5rem; }
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #00ff88;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff88;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(0, 0, 0, 0.5) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 229, 255, 0.05) 50%,
+    transparent 100%
+  );
+  animation: scanlineMove 8s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
 </style>
 </head>
 
 <body>
+<div class="scanlines"></div>
 
-<div class="bg"></div>
-<canvas id="particles"></canvas>
+<div class="cyber-grid"></div>
+<div class="ambient-glow"></div>
+
 <div id="cursor"></div>
+<div id="cursor-follower"></div>
 
 <nav>
-<div class="logo">Venom.dev</div>
-<div>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
-</div>
+  <div class="status-indicator">
+    <div class="dot"></div> System Operational
+  </div>
+  <div class="logo">Venom<span>.</span>dev</div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Systems</a>
+    <a href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
+  </div>
 </nav>
 
 <section class="hero reveal">
-
-<img src="https://github.com/Venom-DevX.png" class="avatar">
-
-<h1>Venom</h1>
-
-<p>
-Developer passionate about programming, security and reverse engineering on Roblox. Building powerful tools, protection systems and backend systems.
-</p>
-
-<div class="music-player">
-  <button id="music-btn" class="btn">Play Music</button>
-  <audio id="background-music" src="./coffee.mp3" loop></audio>
-</div>
+  <div class="avatar-container">
+    <img src="https://github.com/Venom-DevX.png" class="avatar" alt="Venom">
+  </div>
+  <div class="badge">BACKEND_DEV // SEC_DEV</div>
+  <h1 id="typewriter">Venom</h1>
+  <p>
+    Backend & Security Developer. Specialized in zero-trust architectures, 
+    anti-abuse protections, and engineering high-performance systems for 1M+ active users.
+  </p>
   
-<div class="links">
-<a class="btn" href="https://github.com/Venom-DevX" target="_blank">GitHub</a>
-<a class="btn" href="https://discord.com/users/1126266231322837113" target="_blank">Discord</a>
-</div>
+  <div class="btn-group">
+    <a href="https://github.com/Venom-DevX" class="btn btn-primary">View GitHub</a>
+    <a href="https://discord.com/users/1126266231322837113" target="_blank" class="btn btn-secondary">Contact</a>
+  </div>
   
-<div class="banner">
-<img src="https://cdn.discordapp.com/attachments/1460509276538802328/1482953581387579502/a51845e3f58f0753ae695fbe47dfda72.jpg?ex=69b8d3a5&is=69b78225&hm=6967504ebc643faf1c48d77f6da62e6ae5c8dd92a22bee41b2d9942cd7f78309&">
-</div>
-
+  <audio id="bg-audio" src="./coffee.mp3" loop></audio>
 </section>
 
-<section id="about" class="reveal">
-
-<h2>About Me</h2>
-
-<p>
-I'm a developer focused on backend systems, security and reverse engineering.
-
-I started programming through games and quickly became passionate about
-building complex systems, protection mechanisms and scalable backends.
-
-Today I develop tools, APIs and security systems mainly for Roblox and
-web platforms, always focusing on performance, architecture and protection
-against reverse engineering.
-</p>
-
-</section>
-  
 <section id="skills" class="reveal">
-
-<h2>Skills</h2>
-
-<div class="skills">
-<span>Lua</span>
-<span>JavaScript</span>
-<span>TypeScript</span>
-<span>Node.js</span>
-<span>Security</span>
-<span>Reverse Engineering</span>
-<span>WebSocket</span>
-<span>Roblox</span>
-</div>
-
+  <h2 class="section-title">Tech_Stack</h2>
+  <div class="skills-container">
+    <div class="skills-track">
+      <span class="skill-item">Lua/Luau</span>
+      <span class="skill-item">TypeScript</span>
+      <span class="skill-item">Node.js</span>
+      <span class="skill-item">PostgreSQL</span>
+      <span class="skill-item">Reverse-Engineering</span>
+      <span class="skill-item">WebSockets</span>
+      <span class="skill-item">Security</span>
+      
+      <span class="skill-item">Lua/Luau</span>
+      <span class="skill-item">TypeScript</span>
+      <span class="skill-item">Node.js</span>
+      <span class="skill-item">PostgreSQL</span>
+      <span class="skill-item">Reverse-Engineering</span>
+      <span class="skill-item">WebSockets</span>
+      <span class="skill-item">Security</span>
+    </div>
+  </div>
 </section>
 
 <section id="projects" class="reveal">
+  <h2 class="section-title">Core_Systems</h2>
+  <div class="grid">
 
-<h2>Projects</h2>
+    <div class="card">
+      <h3>Chaos Hub Brookhaven</h3>
+      <p>Large-scale client system for high-traffic environments. 1M+ executions. Built for extreme runtime optimization and modularity.</p>
+      <div class="tags">
+        <span class="tag highlight">Lua</span>
+        <span class="tag">Roblox API</span>
+        <span class="tag">Exploit Protection</span>
+      </div>
+      <div class="terminal">
+        <code id="chaos-code">loadstring(game:HttpGet("https://raw.github...</code>
+        <button class="copy-btn" onclick="copyCode('chaos-code', 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua\'))();')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        </button>
+      </div>
+    </div>
 
-<div class="grid">
+    <div class="card">
+      <h3>Lua Guardian</h3>
+      <p>Enterprise-grade runtime anti-hooking and obfuscation engine. Prevents memory dumping and unauthorized script tampering.</p>
+      <div class="tags">
+        <span class="tag highlight">Node.js</span>
+        <span class="tag">AST Parsing</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+      <a href="https://lua-guardian.shardweb.app/" target="_blank" class="btn btn-secondary" style="margin-top:auto; width:max-content; font-size: 0.8rem; padding: 8px 16px;">Access Dashboard</a>
+    </div>
 
-<div class="card reveal" data-tilt>
-<div class="card-inner">
+    <div class="card">
+      <h3>High-Perf URL Shortener</h3>
+      <p>Scalable redirection service utilizing Hashids and PostgreSQL. Built with robust JWT Auth and Rate Limiting layers.</p>
+      <div class="tags">
+        <span class="tag highlight">TypeScript</span>
+        <span class="tag">Express</span>
+        <span class="tag">Hashids</span>
+      </div>
+      <a href="https://github.com/Venom-devX/url-shortener" target="_blank" class="btn btn-secondary" style="margin-top:auto; width:max-content; font-size: 0.8rem; padding: 8px 16px;">Source Code</a>
+    </div>
+    
+    <div class="card">
+      <h3>EduPanel Access API</h3>
+      <p>Secure management architecture featuring Role-Based Access Control (RBAC) and strict audit logging for institutional use.</p>
+      <div class="tags">
+        <span class="tag highlight">Security</span>
+        <span class="tag">Authentication</span>
+      </div>
+      <a href="https://frontend-school-system-1l9d.vercel.app/" target="_blank" class="btn btn-secondary" style="margin-top:auto; width:max-content; font-size: 0.8rem; padding: 8px 16px;">View Demo</a>
+    </div>
 
-<h3>Chaos Hub Brookhaven</h3>
-
-<p>
-Large-scale client system developed for a high-traffic Roblox game (Brookhaven), with over 1M executions, focusing on performance, modular architecture and runtime optimization.
-</p>
-  
-<div class="project-stats">
-<span>1M+ executions</span>
-<span>8K+ Discord members</span>
-</div>
-
-<div class="tags">
-<span class="tag">Lua</span>
-<span class="tag">Roblox</span>
-</div>
-
-<a class="btn showcase" href="https://youtu.be/lGgzmvKEGbI" target="_blank">
-Showcase
-</a>
-
-<div class="loadstring-box">
-<code id="chaos-load">
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Venom-devX/ChaosHub/main/loader.lua"))();
-</code>
-<button class="copy-btn" onclick="copyChaos()">Copy</button>
-</div>
-
-</div>
-</div>
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-<h3>Lua Guardian</h3>
-<p>Advanced obfuscation and runtime anti-hooking protection system.</p>
-<div class="tags">
-<span class="tag">Node.js</span>
-<span class="tag">Library code injection</span>
-<span class="tag">express</span>
-<span class="tag">JWT</span>
-<span class="tag">PostgreSQL</span>
-<span class="tag">Security</span>
-<span class="tag">Luau</span>
-</div>
-
-<a class="btn" href="https://lua-guardian.shardweb.app/" target="_blank">
-View page
-</a>
-
-</div>
-</div>
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-
-<h3>URL shortener<span class="tag open">Open-Source</span></h3>
-<p>A high-performance and scalable URL shortener featuring Hashids-based ID generation and PostgreSQL-backed persistence, designed for reliability and efficiency.</p>
-
-<div class="tags">
-<span class="tag">Node.js</span>
-<span class="tag">TypeScript</span>
-<span class="tag">Hashids</span>
-<span class="tag">PostgreSQL</span>
-<span class="tag">JWT Auth</span>
-<span class="tag">Rate Limiting</span>
-<span class="tag">Analytics</span>
-</div>
-
-<a class="btn" href="https://github.com/Venom-devX/url-shortener" target="_blank" rel="noopener noreferrer">
-  View on GitHub
-</a>
-
-</div>
-</div>
-  
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-
-<h3>Chat System <span class="tag open">Open-Source</span></h3>
-<p>Custom WebSocket backend with modular request handling.</p>
-
-<div class="tags">
-<span class="tag">Node.js</span>
-<span class="tag">TypeScript</span>
-<span class="tag">WebSocket</span>
-</div>
-
-<a class="btn" href="https://github.com/Venom-devX/ChatSystem" target="_blank" rel="noopener noreferrer">
-  View on GitHub
-</a>
-
-</div>
-</div>
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-<h3>Luau Protection Solutions</h3>
-<p>Techniques for protecting Lua scripts against reverse engineering.</p>
-<div class="tags">
-<span class="tag">Luau</span>
-<span class="tag">Security</span>
-</div>
-</div>
-</div>
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-
-<h3>EduPanel</h3>
-
-<p>
-Secure school management API with authentication, RBAC access control and audit logging.
-</p>
-<a class="btn" href="https://frontend-school-system-1l9d.vercel.app/" target="_blank">
-View page
-</a>
-</div>
-</div>
-
-</div>
-
+  </div>
 </section>
-
 <section id="blogs" class="reveal">
+  <h2 class="section-title">Intelligence_Briefings</h2>
+  <div class="grid">
+    
+    <div class="card">
+      <div class="badge" style="margin-bottom: 10px; font-size: 0.6rem; width: max-content;">THREAT_INTEL</div>
+      <h3>Honeypots for Malicious Actors</h3>
+      <p>Deploying deception layers to detect and analyze attackers targeting backend products.</p>
+      <div class="tags">
+        <span class="tag">Security</span>
+        <span class="tag">Defense</span>
+      </div>
+      <a href="./blogs/honeypots" class="btn btn-primary" style="font-size: 0.75rem; padding: 8px 16px; margin-top: auto; width: max-content;">Read Entry</a>
+    </div>
 
-<h2>Latest Blogs</h2>
+    <div class="card">
+      <div class="badge" style="margin-bottom: 10px; font-size: 0.6rem; width: max-content;">API_SEC</div>
+      <h3>7 Fatal API Mistakes</h3>
+      <p>A deep dive into common security pitfalls: from input validation to broken authentication.</p>
+      <div class="tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">Best Practices</span>
+      </div>
+      <a href="./blogs/common-api-mistakes" class="btn btn-primary" style="font-size: 0.75rem; padding: 8px 16px; margin-top: auto; width: max-content;">Read Entry</a>
+    </div>
 
-<div class="grid">
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-
-<h3>Deploying Honeypots to Catch Malicious Actors</h3>
-<p>Learn how to use honeypots to detect, analyze, and defend against attackers targeting your APIs and products.</p>
-<div class="tags">
-<span class="tag">Security</span>
-<span class="tag">Honeypots</span>
-<span class="tag">Backend</span>
-</div>
-<a class="btn showcase" href="./blogs/honeypots" target="_blank">
-Read Blog
-</a>
-
-</div>
-</div>
-
-<div class="card reveal" data-tilt>
-<div class="card-inner">
-
-<h3>7 Fatal API Mistakes You're Probably Making</h3>
-<p>Guide to avoid common API pitfalls: input validation, auth, rate limiting, and more.</p>
-<div class="tags">
-<span class="tag">Security</span>
-<span class="tag">API</span>
-<span class="tag">Node.js</span>
-</div>
-<a class="btn showcase" href="./blogs/common-api-mistakes" target="_blank">
-Read Blog
-</a>
-
-</div>
-</div>
-
+  </div>
 </section>
 
 <footer>
-© 2026 Venom
+  <p>© 2026 venom_dev. All rights reserved.</p>
 </footer>
 
 <script>
+const cursor = document.getElementById("cursor");
+const follower = document.getElementById("cursor-follower");
+let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
 
-const canvas=document.getElementById("particles")
-const ctx=canvas.getContext("2d")
+const text = "Venom";
+const element = document.getElementById("typewriter");
+let i = 0;
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-let particles=[]
-
-for(let i=0;i<80;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-dx:(Math.random()-0.5)*0.4,
-dy:(Math.random()-0.5)*0.4
-})
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height)
-particles.forEach(p=>{
-p.x+=p.dx
-p.y+=p.dy
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fillStyle="white"
-ctx.fill()
-})
-requestAnimationFrame(animate)
-}
-
-animate()
-
-const cursor=document.getElementById("cursor")
-
-document.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px"
-cursor.style.top=e.clientY+"px"
-})
-
-document.querySelectorAll("[data-tilt]").forEach(card=>{
-const inner=card.querySelector(".card-inner")
-
-card.addEventListener("mousemove",e=>{
-const rect=card.getBoundingClientRect()
-
-const x=(e.clientX-rect.left)/rect.width
-const y=(e.clientY-rect.top)/rect.height
-
-const rotateX=(y-0.5)*-20
-const rotateY=(x-0.5)*20
-
-inner.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-})
-
-card.addEventListener("mouseleave",()=>{
-inner.style.transform="rotateX(0) rotateY(0)"
-})
-
-})
-
-const observer=new IntersectionObserver((entries)=>{
-entries.forEach((entry,i)=>{
-if(entry.isIntersecting){
-setTimeout(()=>{
-entry.target.classList.add("show")
-},i*120)
-}
-})
-},{
-threshold:0.15
-})
-
-document.querySelectorAll(".reveal").forEach(el=>{
-observer.observe(el)
-})
-
-function copyChaos(){
-const text=document.getElementById("chaos-load").innerText
-navigator.clipboard.writeText(text)
-const btn=document.querySelector(".copy-btn")
-btn.innerText="Copied!"
-setTimeout(()=>{btn.innerText="Copy"},1500)
-}
-
-const music = document.getElementById("background-music")
-const musicBtn = document.getElementById("music-btn")
-
-musicBtn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play()
-    musicBtn.innerText = "Pause Music"
-  } else {
-    music.pause()
-    musicBtn.innerText = "Play Music"
+function type() {
+  if (i < text.length) {
+    element.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, 150);
   }
-})
+}
+element.innerHTML = "";
+type();
 
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + "px";
+  cursor.style.top = mouseY + "px";
+});
+
+function animateCursor() {
+  followerX += (mouseX - followerX) * 0.15;
+  followerY += (mouseY - followerY) * 0.15;
+  follower.style.left = followerX + "px";
+  follower.style.top = followerY + "px";
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    follower.style.borderColor = 'rgba(0, 229, 255, 0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+    follower.style.borderColor = 'var(--accent-main)';
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add("show");
+      }, i * 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(".reveal").forEach(el => {
+  observer.observe(el);
+});
+
+function copyCode(elementId, fullText) {
+  navigator.clipboard.writeText(fullText).then(() => {
+    const codeEl = document.getElementById(elementId);
+    const originalText = codeEl.innerText;
+    codeEl.innerText = 'Copied to clipboard...';
+    codeEl.style.color = '#fff';
+    setTimeout(() => {
+      codeEl.innerText = originalText;
+      codeEl.style.color = 'var(--accent-main)';
+    }, 2000);
+  });
+}
+
+document.body.addEventListener('click', () => {
+  const audio = document.getElementById('bg-audio');
+  if (audio.paused) {
+    audio.volume = 0.2;
+    audio.play();
+  }
+}, { once: true });
 </script>
 
 </body>
